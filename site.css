@@ -1,0 +1,37 @@
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: #FFFFFF; color: #4A5568; }
+body { font-family: Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: #2E86AB; }
+::selection { background: #0A1628; color: #fff; }
+img { max-width: 100%; }
+
+@media (max-width: 960px) {
+  .hero-grid { grid-template-columns: 1fr !important; gap: 56px !important; min-height: auto !important; padding-top: 56px !important; padding-bottom: 80px !important; }
+  .hero-badge { left: auto !important; right: 0 !important; bottom: -20px !important; }
+  .ind-header { grid-template-columns: 1fr !important; gap: 32px !important; margin-bottom: 56px !important; }
+  .ind-header > p { justify-self: start !important; }
+  .ind-split { grid-template-columns: 1fr !important; gap: 56px !important; }
+  .ind-image-wrap { position: static !important; order: -1; }
+  .case-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+  .cap-grid { grid-template-columns: 1fr !important; }
+  .cap-cell { padding-left: 0 !important; padding-right: 0 !important; border-right: none !important; }
+  .fac-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .tl-grid { grid-template-columns: 1fr !important; }
+  .tl-cell { padding-left: 0 !important; border-right: none !important; border-bottom: 1px solid #ECEEF1; }
+  .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 40px !important; }
+  .footer-bottom { flex-direction: column; align-items: flex-start !important; }
+  .desktop-nav { display: none !important; }
+  .mobile-menu-btn { display: block !important; }
+  .case-thumbs { grid-template-columns: 1fr 1fr 1fr !important; }
+  .team-grid { grid-template-columns: 1fr 1fr !important; }
+  .ind-detail-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+  .product-grid { grid-template-columns: 1fr 1fr !important; }
+  .heritage-grid { grid-template-columns: 1fr !important; }
+  .contact-grid { grid-template-columns: 1fr !important; }
+  .industries-hub-grid { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 600px) {
+  .footer-grid { grid-template-columns: 1fr !important; }
+  .team-grid { grid-template-columns: 1fr !important; }
+  .product-grid { grid-template-columns: 1fr !important; }
+}
