@@ -1,16 +1,4 @@
 /* global React, ReactDOM */
-const {
-  TOKENS,
-  FadeUp,
-  PageFade,
-  Placeholder,
-  Kicker,
-  ctaPrimary,
-  ctaSecondary,
-  Nav,
-  Footer,
-  INDUSTRIES
-} = window;
 
 // Reads ?slug=farming or window.__INDUSTRY_SLUG
 const slug = window.__INDUSTRY_SLUG || "farming";

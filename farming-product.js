@@ -1,15 +1,5 @@
 /* global React, ReactDOM */
-const {
-  TOKENS,
-  FadeUp,
-  PageFade,
-  Placeholder,
-  Kicker,
-  ctaPrimary,
-  ctaSecondary,
-  Nav,
-  Footer
-} = window;
+
 const FARMING_PRODUCTS = [{
   slug: "milk-cooling-tanks",
   n: "01",

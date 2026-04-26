@@ -1,5 +1,4 @@
 /* global React, ReactDOM */
-const { TOKENS, FadeUp, PageFade, Placeholder, Kicker, ctaPrimary, ctaSecondary, Nav, Footer } = window;
 
 const STUDIES = [
   { client: "Ballymaloe", n: "01", title: "Production line", sector: "Food & Beverage", year: "2024", scale: "38m line", tone: "steel" },

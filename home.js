@@ -1,16 +1,4 @@
 /* global React, ReactDOM */
-const {
-  TOKENS,
-  FadeUp,
-  PageFade,
-  Placeholder,
-  Kicker,
-  ctaPrimary,
-  ctaSecondary,
-  Nav,
-  Footer,
-  INDUSTRIES
-} = window;
 
 // HERO
 const Hero = () => /*#__PURE__*/React.createElement("section", {

@@ -1,5 +1,4 @@
 /* global React, ReactDOM */
-const { TOKENS, FadeUp, PageFade, Placeholder, Kicker, ctaPrimary, ctaSecondary, Nav, Footer, INDUSTRIES } = window;
 
 const PageHero = ({ kicker, title, sub }) => (
   <section style={{ background: TOKENS.white, borderBottom: `1px solid ${TOKENS.hairline}`, padding: "100px 0 80px" }}>

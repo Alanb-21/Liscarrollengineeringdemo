@@ -1,15 +1,5 @@
 /* global React, ReactDOM */
-const {
-  TOKENS,
-  FadeUp,
-  PageFade,
-  Placeholder,
-  Kicker,
-  ctaPrimary,
-  ctaSecondary,
-  Nav,
-  Footer
-} = window;
+
 const TIMELINE = [["1973", "Founded in Liscarroll", "John O'Sullivan opens a small fabrication shop in Liscarroll, Co. Cork. First job: a milk cooling tank for a neighbouring dairy farm."], ["1981", "First export contract", "Refurbished equipment shipped to a creamery in the United Kingdom. The export business begins quietly."], ["1989", "Into food production", "Expansion from dairy farming into full food-production fabrication. Butter producers and creameries become long-term clients."], ["1996", "Second generation joins", "Mary O'Sullivan joins the business full-time. Operations, scheduling and supplier relations are professionalised."], ["2004", "Move to Rockspring", "Relocation to the current 20,000 sq ft facility at Rockspring. CNC machinery and full craneage installed."], ["2011", "Pharmaceutical work begins", "First passivated vessels delivered to an Irish pharmaceutical client. Mirror-polished GMP work becomes a core capability."], ["2017", "ISO accreditation", "Quality management system audited and certified to ISO 9001 across every manufacturing process."], ["2021", "Croke Park", "Bespoke 'Tap. Take. Go.' bar fabrication delivered for one of Ireland's most-watched venues."], ["2026", "Five sectors served", "Farming, food, pharma, leisure and bespoke — all from the same Cork plant. Three generations of the O'Sullivan family still on the books."]];
 const Hero = () => /*#__PURE__*/React.createElement("section", {
   style: {

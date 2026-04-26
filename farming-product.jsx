@@ -1,5 +1,4 @@
 /* global React, ReactDOM */
-const { TOKENS, FadeUp, PageFade, Placeholder, Kicker, ctaPrimary, ctaSecondary, Nav, Footer } = window;
 
 const FARMING_PRODUCTS = [
   {

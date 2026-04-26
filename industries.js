@@ -1,16 +1,5 @@
 /* global React, ReactDOM */
-const {
-  TOKENS,
-  FadeUp,
-  PageFade,
-  Placeholder,
-  Kicker,
-  ctaPrimary,
-  ctaSecondary,
-  Nav,
-  Footer,
-  INDUSTRIES
-} = window;
+
 const PageHero = ({
   kicker,
   title,

@@ -1,5 +1,4 @@
 /* global React, ReactDOM */
-const { TOKENS, FadeUp, PageFade, Placeholder, Kicker, ctaPrimary, ctaSecondary, Nav, Footer } = window;
 
 const TIMELINE = [
   ["1973", "Founded in Liscarroll", "John O'Sullivan opens a small fabrication shop in Liscarroll, Co. Cork. First job: a milk cooling tank for a neighbouring dairy farm."],

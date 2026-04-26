@@ -1,16 +1,5 @@
 /* global React, ReactDOM */
-const {
-  TOKENS,
-  FadeUp,
-  PageFade,
-  Placeholder,
-  Kicker,
-  ctaPrimary,
-  ctaSecondary,
-  Nav,
-  Footer,
-  INDUSTRIES
-} = window;
+
 const Hero = () => /*#__PURE__*/React.createElement("section", {
   style: {
     background: TOKENS.white,

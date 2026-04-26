@@ -1,5 +1,4 @@
 /* global React, ReactDOM */
-const { TOKENS, FadeUp, PageFade, Placeholder, Kicker, ctaPrimary, ctaSecondary, Nav, Footer } = window;
 
 const TEAM = [
   { name: "John O'Sullivan", role: "Founder & Managing Director", bio: "Founded Liscarroll Engineering in 1973. Still on the floor most days.", joined: "1973" },

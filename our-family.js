@@ -1,15 +1,5 @@
 /* global React, ReactDOM */
-const {
-  TOKENS,
-  FadeUp,
-  PageFade,
-  Placeholder,
-  Kicker,
-  ctaPrimary,
-  ctaSecondary,
-  Nav,
-  Footer
-} = window;
+
 const TEAM = [{
   name: "John O'Sullivan",
   role: "Founder & Managing Director",
