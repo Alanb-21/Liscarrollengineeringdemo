@@ -10,6 +10,15 @@ const next = INDUSTRIES[(idx + 1) % INDUSTRIES.length];
 
 document.title = `${ind.name} — Liscarroll Engineering`;
 
+const FARMING_PRODUCT_DATA = [
+  { name: "Milk Cooling Tanks",    slug: "milk-cooling-tanks",    desc: "Direct-expansion and ice-bank tanks from 1,000–30,000 L. Exceeds EN13732. Built in Cork since 1973." },
+  { name: "Ice Builders",          slug: "ice-builders",          desc: "Build ice overnight on off-peak tariffs and deploy cooling capacity on demand at milking time." },
+  { name: "Milk Silos",            slug: "milk-silos",            desc: "Vertical and horizontal silos from 10,000–200,000 L for creameries and co-op collection points." },
+  { name: "Buffer Tanks",          slug: "buffer-tanks",          desc: "Absorb warm milk between parlour and bulk cooling — protecting your cooling capacity at peak flow." },
+  { name: "Heat Recovery Units",   slug: "heat-recovery-units",   desc: "Recover waste refrigeration heat. Typical saving: 40–60% of water heating costs per installation." },
+  { name: "Used Equipment",        slug: "used-equipment",        desc: "Factory-reconditioned, re-certified dairy equipment. 12-month warranty. Available from stock." },
+];
+
 const Hero = () => (
   <section style={{ background: TOKENS.white, borderBottom: `1px solid ${TOKENS.hairline}` }}>
     <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 32px" }}>
@@ -49,43 +58,77 @@ const Hero = () => (
   </section>
 );
 
-const Products = () => (
-  <section style={{ background: TOKENS.white, padding: "100px 0", borderBottom: `1px solid ${TOKENS.hairline}` }}>
-    <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 32px" }}>
-      <div style={{ marginBottom: 64, maxWidth: 720 }}>
-        <FadeUp><Kicker style={{ marginBottom: 28 }}>What we build for {ind.name.toLowerCase()}</Kicker></FadeUp>
-        <FadeUp delay={120}>
-          <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(40px, 5vw, 72px)", lineHeight: 0.95, letterSpacing: "0.02em", color: TOKENS.navy, margin: 0, textTransform: "uppercase" }}>
-            The full range.
-          </h2>
-        </FadeUp>
-      </div>
-      <div className="product-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", borderTop: `1px solid ${TOKENS.hairline}` }}>
-        {ind.items.map((it, i) => (
-          <FadeUp key={it} delay={(i % 3) * 60}>
-            <div style={{
+const Products = () => {
+  const isFarming = slug === "farming";
+  const farmingMap = isFarming
+    ? Object.fromEntries(FARMING_PRODUCT_DATA.map((p) => [p.name, p]))
+    : {};
+
+  return (
+    <section style={{ background: TOKENS.white, padding: "100px 0", borderBottom: `1px solid ${TOKENS.hairline}` }}>
+      <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 32px" }}>
+        <div style={{ marginBottom: 64, maxWidth: 720 }}>
+          <FadeUp><Kicker style={{ marginBottom: 28 }}>What we build for {ind.name.toLowerCase()}</Kicker></FadeUp>
+          <FadeUp delay={120}>
+            <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(40px, 5vw, 72px)", lineHeight: 0.95, letterSpacing: "0.02em", color: TOKENS.navy, margin: 0, textTransform: "uppercase" }}>
+              The full range.
+            </h2>
+          </FadeUp>
+        </div>
+        <div className="product-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", borderTop: `1px solid ${TOKENS.hairline}` }}>
+          {ind.items.map((it, i) => {
+            const pData = farmingMap[it];
+            const cellStyle = {
               padding: "32px 28px 32px 0",
               paddingLeft: i % 3 === 0 ? 0 : 28,
               borderRight: (i + 1) % 3 === 0 ? "none" : `1px solid ${TOKENS.hairline}`,
               borderBottom: `1px solid ${TOKENS.hairline}`,
-              minHeight: 160,
-            }}>
-              <span style={{ fontFamily: "Inter, sans-serif", fontSize: 11, fontWeight: 500, letterSpacing: "0.20em", textTransform: "uppercase", color: TOKENS.steel }}>
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 32, letterSpacing: "0.02em", color: TOKENS.navy, margin: "16px 0 12px 0", textTransform: "uppercase", lineHeight: 1 }}>
-                {it}
-              </h3>
-              <p style={{ fontFamily: "Inter, sans-serif", fontSize: 13.5, lineHeight: 1.6, color: TOKENS.body, margin: 0 }}>
-                Built to AISI 304 standard at our Cork facility. Specifications available on request.
-              </p>
-            </div>
-          </FadeUp>
-        ))}
+              minHeight: 180,
+              display: "block",
+              textDecoration: "none",
+              color: "inherit",
+              transition: "background 150ms ease",
+            };
+            const inner = (
+              <>
+                <span style={{ fontFamily: "Inter, sans-serif", fontSize: 11, fontWeight: 500, letterSpacing: "0.20em", textTransform: "uppercase", color: TOKENS.steel }}>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 32, letterSpacing: "0.02em", color: TOKENS.navy, margin: "16px 0 12px 0", textTransform: "uppercase", lineHeight: 1 }}>
+                  {it}
+                </h3>
+                <p style={{ fontFamily: "Inter, sans-serif", fontSize: 13.5, lineHeight: 1.6, color: TOKENS.body, margin: "0 0 16px 0" }}>
+                  {pData ? pData.desc : "Built to AISI 304 standard at our Cork facility. Specifications available on request."}
+                </p>
+                {pData && (
+                  <span style={{ fontFamily: "Inter, sans-serif", fontSize: 12, fontWeight: 500, color: TOKENS.steel, letterSpacing: "0.10em", textTransform: "uppercase" }}>
+                    View product →
+                  </span>
+                )}
+              </>
+            );
+            return (
+              <FadeUp key={it} delay={(i % 3) * 60}>
+                {pData ? (
+                  <a
+                    href={`product-farming-${pData.slug}.html`}
+                    style={cellStyle}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = TOKENS.paper; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+                  >
+                    {inner}
+                  </a>
+                ) : (
+                  <div style={cellStyle}>{inner}</div>
+                )}
+              </FadeUp>
+            );
+          })}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 const NextPrev = () => (
   <section style={{ background: TOKENS.white, padding: "60px 0 120px" }}>
