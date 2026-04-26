@@ -195,8 +195,8 @@ const ctaPrimary = {
   fontWeight: 500,
   background: TOKENS.navy,
   color: "#fff",
-  padding: "16px 28px",
-  borderRadius: 4,
+  padding: "12px 22px",
+  borderRadius: 9999,
   textDecoration: "none",
   letterSpacing: "0.02em",
 };
@@ -207,8 +207,8 @@ const ctaSecondary = {
   fontWeight: 500,
   background: TOKENS.white,
   color: TOKENS.navy,
-  padding: "16px 28px",
-  borderRadius: 4,
+  padding: "12px 22px",
+  borderRadius: 9999,
   textDecoration: "none",
   letterSpacing: "0.02em",
   border: `0.5px solid ${TOKENS.brushed}`,
@@ -261,74 +261,78 @@ const Nav = ({ current = "" }) => {
           position: "sticky",
           top: 0,
           zIndex: 50,
-          background: "rgba(255,255,255,0.96)",
-          backdropFilter: "blur(8px)",
-          WebkitBackdropFilter: "blur(8px)",
-          borderBottom: `0.5px solid ${scrolled ? TOKENS.brushed : TOKENS.hairline}`,
-          transition: "border-color 200ms ease",
+          padding: "14px 24px",
+          background: "transparent",
+          pointerEvents: "none",
         }}
       >
-        <div
-          style={{
-            maxWidth: 1440,
-            margin: "0 auto",
-            padding: "0 32px",
-            height: 84,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <Logo height={44} />
-
-          <nav className="desktop-nav" style={{ display: "flex", gap: 36, alignItems: "center" }}>
-            {NAV_LINKS.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                style={{
-                  fontFamily: "Inter, sans-serif",
-                  fontSize: 13.5,
-                  fontWeight: 500,
-                  color: TOKENS.navy,
-                  textDecoration: "none",
-                  letterSpacing: "0.01em",
-                  position: "relative",
-                  paddingBottom: 4,
-                  borderBottom: current === item.href ? `1px solid ${TOKENS.steel}` : "1px solid transparent",
-                  transition: "border-color 200ms ease",
-                }}
-                onMouseEnter={(e) => {
-                  if (current !== item.href) e.currentTarget.style.borderBottomColor = TOKENS.brushed;
-                }}
-                onMouseLeave={(e) => {
-                  if (current !== item.href) e.currentTarget.style.borderBottomColor = "transparent";
-                }}
-              >
-                {item.label}
-              </a>
-            ))}
-            <a href="contact.html" style={{ ...ctaPrimary, padding: "11px 22px", fontSize: 13 }}>
-              Start a Project
-            </a>
-          </nav>
-
-          <button
-            className="mobile-menu-btn"
-            onClick={() => setMobileOpen(true)}
+        <div style={{ maxWidth: 1440, margin: "0 auto", pointerEvents: "auto" }}>
+          <div
             style={{
-              display: "none",
-              background: "transparent",
-              border: "none",
-              cursor: "pointer",
-              padding: 8,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              background: "rgba(255,255,255,0.96)",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
+              borderRadius: 9999,
+              border: `0.5px solid ${scrolled ? TOKENS.brushed : TOKENS.hairline}`,
+              padding: "6px 6px 6px 22px",
+              transition: "border-color 200ms ease",
             }}
-            aria-label="Open menu"
           >
-            <div style={{ width: 22, height: 1, background: TOKENS.navy, marginBottom: 6 }} />
-            <div style={{ width: 22, height: 1, background: TOKENS.navy, marginBottom: 6 }} />
-            <div style={{ width: 14, height: 1, background: TOKENS.navy }} />
-          </button>
+            <Logo height={40} />
+
+            <nav className="desktop-nav" style={{ display: "flex", gap: 2, alignItems: "center" }}>
+              {NAV_LINKS.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  style={{
+                    fontFamily: "Inter, sans-serif",
+                    fontSize: 13.5,
+                    fontWeight: 500,
+                    color: TOKENS.navy,
+                    textDecoration: "none",
+                    letterSpacing: "0.01em",
+                    padding: "9px 16px",
+                    borderRadius: 9999,
+                    background: current === item.href ? TOKENS.hairline : "transparent",
+                    transition: "background 200ms ease",
+                    display: "inline-block",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (current !== item.href) e.currentTarget.style.background = TOKENS.paper;
+                  }}
+                  onMouseLeave={(e) => {
+                    if (current !== item.href) e.currentTarget.style.background = "transparent";
+                  }}
+                >
+                  {item.label}
+                </a>
+              ))}
+              <a href="contact.html" style={{ ...ctaPrimary, padding: "11px 22px", fontSize: 13, marginLeft: 6 }}>
+                Start a Project
+              </a>
+            </nav>
+
+            <button
+              className="mobile-menu-btn"
+              onClick={() => setMobileOpen(true)}
+              style={{
+                display: "none",
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+                padding: 8,
+              }}
+              aria-label="Open menu"
+            >
+              <div style={{ width: 22, height: 1, background: TOKENS.navy, marginBottom: 6 }} />
+              <div style={{ width: 22, height: 1, background: TOKENS.navy, marginBottom: 6 }} />
+              <div style={{ width: 14, height: 1, background: TOKENS.navy }} />
+            </button>
+          </div>
         </div>
       </header>
 

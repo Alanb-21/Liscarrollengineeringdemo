@@ -107,22 +107,39 @@ const TeamGrid = () => /*#__PURE__*/React.createElement("section", {
 }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Placeholder, {
   label: `PORTRAIT · ${p.name}`,
   ratio: "3/4",
-  tone: i % 2 === 0 ? "navy" : "steel"
+  tone: i % 2 === 0 ? "navy" : "steel",
+  style: {
+    borderRadius: 12
+  }
 }), /*#__PURE__*/React.createElement("div", {
   style: {
     paddingTop: 20
   }
 }, /*#__PURE__*/React.createElement("div", {
   style: {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 6,
+    marginBottom: 12,
     fontFamily: "Inter, sans-serif",
     fontSize: 11,
     fontWeight: 500,
-    letterSpacing: "0.20em",
+    letterSpacing: "0.15em",
     textTransform: "uppercase",
     color: TOKENS.steel,
-    marginBottom: 8
+    borderRadius: 9999,
+    padding: "6px 12px",
+    border: `0.5px solid ${TOKENS.hairline}`
   }
-}, "Joined ", p.joined), /*#__PURE__*/React.createElement("h3", {
+}, /*#__PURE__*/React.createElement("span", {
+  style: {
+    width: 5,
+    height: 5,
+    borderRadius: "50%",
+    background: TOKENS.steel,
+    flexShrink: 0
+  }
+}), "Joined ", p.joined), /*#__PURE__*/React.createElement("h3", {
   style: {
     fontFamily: "'Bebas Neue', sans-serif",
     fontSize: 26,

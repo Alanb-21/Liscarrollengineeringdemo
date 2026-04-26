@@ -75,6 +75,7 @@ const IndustriesHub = () => /*#__PURE__*/React.createElement("section", {
     color: "inherit",
     padding: 0,
     border: `0.5px solid ${TOKENS.brushed}`,
+    borderRadius: 18,
     transition: "transform 400ms cubic-bezier(.2,.7,.2,1), border-color 200ms ease"
   },
   onMouseEnter: e => {
@@ -89,7 +90,8 @@ const IndustriesHub = () => /*#__PURE__*/React.createElement("section", {
   }
 }, /*#__PURE__*/React.createElement("div", {
   style: {
-    overflow: "hidden"
+    overflow: "hidden",
+    borderRadius: 12
   }
 }, /*#__PURE__*/React.createElement("div", {
   className: "hub-img",

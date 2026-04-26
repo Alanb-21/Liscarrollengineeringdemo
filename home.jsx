@@ -59,6 +59,7 @@ const Hero = () => (
               background: TOKENS.white,
               padding: "20px 24px",
               border: `0.5px solid ${TOKENS.brushed}`,
+              borderRadius: 18,
               maxWidth: 240,
             }}>
               <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 56, color: TOKENS.navy, lineHeight: 1, letterSpacing: "0.02em" }}>50+</div>

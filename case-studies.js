@@ -129,7 +129,8 @@ const Grid = () => /*#__PURE__*/React.createElement("section", {
   }
 }, /*#__PURE__*/React.createElement("div", {
   style: {
-    overflow: "hidden"
+    overflow: "hidden",
+    borderRadius: 12
   }
 }, /*#__PURE__*/React.createElement("div", {
   className: "cs-img",
@@ -148,19 +149,33 @@ const Grid = () => /*#__PURE__*/React.createElement("section", {
   style: {
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "baseline",
-    marginBottom: 12
+    alignItems: "center",
+    marginBottom: 16
   }
 }, /*#__PURE__*/React.createElement("span", {
   style: {
     fontFamily: "Inter, sans-serif",
     fontSize: 11,
     fontWeight: 500,
-    letterSpacing: "0.20em",
+    letterSpacing: "0.15em",
     textTransform: "uppercase",
-    color: TOKENS.steel
+    color: TOKENS.steel,
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 8,
+    borderRadius: 9999,
+    padding: "7px 14px",
+    border: `0.5px solid ${TOKENS.hairline}`
   }
-}, s.n, " \xB7 ", s.sector), /*#__PURE__*/React.createElement("span", {
+}, /*#__PURE__*/React.createElement("span", {
+  style: {
+    width: 5,
+    height: 5,
+    borderRadius: "50%",
+    background: TOKENS.steel,
+    flexShrink: 0
+  }
+}), s.n, " \xB7 ", s.sector), /*#__PURE__*/React.createElement("span", {
   style: {
     fontFamily: "Inter, sans-serif",
     fontSize: 11,

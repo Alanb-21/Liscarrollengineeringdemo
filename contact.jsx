@@ -27,14 +27,15 @@ const ContactGrid = () => {
   };
   const inputStyle = {
     width: "100%",
-    border: "none",
-    borderBottom: `0.5px solid ${TOKENS.brushed}`,
+    border: `0.5px solid ${TOKENS.brushed}`,
     background: "transparent",
-    padding: "14px 0",
+    padding: "12px 16px",
     fontFamily: "Inter, sans-serif",
     fontSize: 15,
     color: TOKENS.navy,
     outline: "none",
+    borderRadius: 12,
+    boxSizing: "border-box",
   };
   const labelStyle = {
     fontFamily: "Inter, sans-serif",
@@ -84,6 +85,7 @@ const ContactGrid = () => {
                 <div style={{
                   padding: "60px 40px",
                   border: `0.5px solid ${TOKENS.brushed}`,
+                  borderRadius: 18,
                   marginTop: 32,
                   textAlign: "center",
                 }}>
@@ -129,10 +131,14 @@ const ContactGrid = () => {
                             letterSpacing: "0.05em",
                             textTransform: "uppercase",
                             cursor: "pointer",
-                            borderRadius: 4,
+                            borderRadius: 9999,
                             transition: "all 200ms ease",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: 6,
                           }}
                         >
+                          <span style={{ width: 5, height: 5, borderRadius: "50%", background: form.industry === ind.slug ? "#fff" : TOKENS.steel, flexShrink: 0 }} />
                           {ind.name}
                         </button>
                       ))}
@@ -145,7 +151,7 @@ const ContactGrid = () => {
                       required
                       value={form.message}
                       onChange={(e) => setForm({ ...form, message: e.target.value })}
-                      style={{ ...inputStyle, resize: "vertical", padding: "14px 0" }}
+                      style={{ ...inputStyle, resize: "vertical", padding: "12px 16px" }}
                     />
                   </div>
                   <button type="submit" style={{ ...ctaPrimary, border: "none", cursor: "pointer", fontSize: 14 }}>

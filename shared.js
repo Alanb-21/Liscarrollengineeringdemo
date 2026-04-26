@@ -213,8 +213,8 @@ const ctaPrimary = {
   fontWeight: 500,
   background: TOKENS.navy,
   color: "#fff",
-  padding: "16px 28px",
-  borderRadius: 4,
+  padding: "12px 22px",
+  borderRadius: 9999,
   textDecoration: "none",
   letterSpacing: "0.02em"
 };
@@ -225,8 +225,8 @@ const ctaSecondary = {
   fontWeight: 500,
   background: TOKENS.white,
   color: TOKENS.navy,
-  padding: "16px 28px",
-  borderRadius: 4,
+  padding: "12px 22px",
+  borderRadius: 9999,
   textDecoration: "none",
   letterSpacing: "0.02em",
   border: `0.5px solid ${TOKENS.brushed}`
@@ -294,29 +294,36 @@ const Nav = ({
       position: "sticky",
       top: 0,
       zIndex: 50,
-      background: "rgba(255,255,255,0.96)",
-      backdropFilter: "blur(8px)",
-      WebkitBackdropFilter: "blur(8px)",
-      borderBottom: `0.5px solid ${scrolled ? TOKENS.brushed : TOKENS.hairline}`,
-      transition: "border-color 200ms ease"
+      padding: "14px 24px",
+      background: "transparent",
+      pointerEvents: "none"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       maxWidth: 1440,
       margin: "0 auto",
-      padding: "0 32px",
-      height: 84,
+      pointerEvents: "auto"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
       display: "flex",
       alignItems: "center",
-      justifyContent: "space-between"
+      justifyContent: "space-between",
+      background: "rgba(255,255,255,0.96)",
+      backdropFilter: "blur(12px)",
+      WebkitBackdropFilter: "blur(12px)",
+      borderRadius: 9999,
+      border: `0.5px solid ${scrolled ? TOKENS.brushed : TOKENS.hairline}`,
+      padding: "6px 6px 6px 22px",
+      transition: "border-color 200ms ease"
     }
   }, /*#__PURE__*/React.createElement(Logo, {
-    height: 44
+    height: 40
   }), /*#__PURE__*/React.createElement("nav", {
     className: "desktop-nav",
     style: {
       display: "flex",
-      gap: 36,
+      gap: 2,
       alignItems: "center"
     }
   }, NAV_LINKS.map(item => /*#__PURE__*/React.createElement("a", {
@@ -329,23 +336,25 @@ const Nav = ({
       color: TOKENS.navy,
       textDecoration: "none",
       letterSpacing: "0.01em",
-      position: "relative",
-      paddingBottom: 4,
-      borderBottom: current === item.href ? `1px solid ${TOKENS.steel}` : "1px solid transparent",
-      transition: "border-color 200ms ease"
+      padding: "9px 16px",
+      borderRadius: 9999,
+      background: current === item.href ? TOKENS.hairline : "transparent",
+      transition: "background 200ms ease",
+      display: "inline-block"
     },
     onMouseEnter: e => {
-      if (current !== item.href) e.currentTarget.style.borderBottomColor = TOKENS.brushed;
+      if (current !== item.href) e.currentTarget.style.background = TOKENS.paper;
     },
     onMouseLeave: e => {
-      if (current !== item.href) e.currentTarget.style.borderBottomColor = "transparent";
+      if (current !== item.href) e.currentTarget.style.background = "transparent";
     }
   }, item.label)), /*#__PURE__*/React.createElement("a", {
     href: "contact.html",
     style: {
       ...ctaPrimary,
       padding: "11px 22px",
-      fontSize: 13
+      fontSize: 13,
+      marginLeft: 6
     }
   }, "Start a Project")), /*#__PURE__*/React.createElement("button", {
     className: "mobile-menu-btn",
@@ -378,7 +387,7 @@ const Nav = ({
       height: 1,
       background: TOKENS.navy
     }
-  })))), /*#__PURE__*/React.createElement("div", {
+  }))))), /*#__PURE__*/React.createElement("div", {
     style: {
       position: "fixed",
       inset: 0,

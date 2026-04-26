@@ -32,6 +32,7 @@ const IndustriesHub = () => (
               color: "inherit",
               padding: 0,
               border: `0.5px solid ${TOKENS.brushed}`,
+              borderRadius: 18,
               transition: "transform 400ms cubic-bezier(.2,.7,.2,1), border-color 200ms ease",
             }}
             onMouseEnter={(e) => {
@@ -44,7 +45,7 @@ const IndustriesHub = () => (
               const img = e.currentTarget.querySelector(".hub-img");
               if (img) img.style.transform = "scale(1)";
             }}>
-              <div style={{ overflow: "hidden" }}>
+              <div style={{ overflow: "hidden", borderRadius: 12 }}>
                 <div className="hub-img" style={{ transition: "transform 600ms cubic-bezier(.2,.7,.2,1)" }}>
                   <Placeholder label={ind.image} ratio="16/10" tone={i % 2 === 0 ? "navy" : "steel"} />
                 </div>

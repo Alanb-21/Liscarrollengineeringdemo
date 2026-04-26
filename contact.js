@@ -56,14 +56,15 @@ const ContactGrid = () => {
   };
   const inputStyle = {
     width: "100%",
-    border: "none",
-    borderBottom: `0.5px solid ${TOKENS.brushed}`,
+    border: `0.5px solid ${TOKENS.brushed}`,
     background: "transparent",
-    padding: "14px 0",
+    padding: "12px 16px",
     fontFamily: "Inter, sans-serif",
     fontSize: 15,
     color: TOKENS.navy,
-    outline: "none"
+    outline: "none",
+    borderRadius: 12,
+    boxSizing: "border-box"
   };
   const labelStyle = {
     fontFamily: "Inter, sans-serif",
@@ -147,6 +148,7 @@ const ContactGrid = () => {
     style: {
       padding: "60px 40px",
       border: `0.5px solid ${TOKENS.brushed}`,
+      borderRadius: 18,
       marginTop: 32,
       textAlign: "center"
     }
@@ -246,10 +248,21 @@ const ContactGrid = () => {
       letterSpacing: "0.05em",
       textTransform: "uppercase",
       cursor: "pointer",
-      borderRadius: 4,
-      transition: "all 200ms ease"
+      borderRadius: 9999,
+      transition: "all 200ms ease",
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 6
     }
-  }, ind.name)))), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 5,
+      height: 5,
+      borderRadius: "50%",
+      background: form.industry === ind.slug ? "#fff" : TOKENS.steel,
+      flexShrink: 0
+    }
+  }), ind.name)))), /*#__PURE__*/React.createElement("div", {
     style: {
       marginBottom: 32
     }
@@ -266,7 +279,7 @@ const ContactGrid = () => {
     style: {
       ...inputStyle,
       resize: "vertical",
-      padding: "14px 0"
+      padding: "12px 16px"
     }
   })), /*#__PURE__*/React.createElement("button", {
     type: "submit",

@@ -85,6 +85,7 @@ const Hero = () => /*#__PURE__*/React.createElement("section", {
     background: TOKENS.white,
     padding: "20px 24px",
     border: `0.5px solid ${TOKENS.brushed}`,
+    borderRadius: 18,
     maxWidth: 240
   }
 }, /*#__PURE__*/React.createElement("div", {

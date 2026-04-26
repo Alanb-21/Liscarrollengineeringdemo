@@ -254,19 +254,28 @@ const Drawings = () => /*#__PURE__*/React.createElement("section", {
 }, /*#__PURE__*/React.createElement(FadeUp, null, /*#__PURE__*/React.createElement(Placeholder, {
   label: product.drawing1,
   ratio: "3/4",
-  tone: "light"
+  tone: "light",
+  style: {
+    borderRadius: 12
+  }
 })), /*#__PURE__*/React.createElement(FadeUp, {
   delay: 80
 }, /*#__PURE__*/React.createElement(Placeholder, {
   label: product.drawing2,
   ratio: "3/4",
-  tone: "light"
+  tone: "light",
+  style: {
+    borderRadius: 12
+  }
 })), /*#__PURE__*/React.createElement(FadeUp, {
   delay: 160
 }, /*#__PURE__*/React.createElement(Placeholder, {
   label: product.drawing3,
   ratio: "3/4",
-  tone: "light"
+  tone: "light",
+  style: {
+    borderRadius: 12
+  }
 })))));
 const Specifications = () => /*#__PURE__*/React.createElement("section", {
   style: {
@@ -380,7 +389,10 @@ const Installed = () => /*#__PURE__*/React.createElement("section", {
 }, /*#__PURE__*/React.createElement(Placeholder, {
   label: product.installedLabel,
   ratio: "21/9",
-  tone: "steel"
+  tone: "steel",
+  style: {
+    borderRadius: 12
+  }
 })), /*#__PURE__*/React.createElement(FadeUp, {
   delay: 140
 }, /*#__PURE__*/React.createElement("p", {

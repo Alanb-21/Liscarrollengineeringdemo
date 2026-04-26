@@ -36,14 +36,21 @@ const Grid = () => (
             <a href="#" style={{ display: "block", textDecoration: "none", color: "inherit" }}
               onMouseEnter={(e) => { const img = e.currentTarget.querySelector(".cs-img"); if (img) img.style.transform = "scale(1.04)"; }}
               onMouseLeave={(e) => { const img = e.currentTarget.querySelector(".cs-img"); if (img) img.style.transform = "scale(1)"; }}>
-              <div style={{ overflow: "hidden" }}>
+              <div style={{ overflow: "hidden", borderRadius: 12 }}>
                 <div className="cs-img" style={{ transition: "transform 600ms cubic-bezier(.2,.7,.2,1)" }}>
                   <Placeholder label={`CASE · ${s.client} ${s.title}`} ratio="4/3" tone={s.tone} />
                 </div>
               </div>
               <div style={{ paddingTop: 24 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 12 }}>
-                  <span style={{ fontFamily: "Inter, sans-serif", fontSize: 11, fontWeight: 500, letterSpacing: "0.20em", textTransform: "uppercase", color: TOKENS.steel }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+                  <span style={{
+                    fontFamily: "Inter, sans-serif", fontSize: 11, fontWeight: 500,
+                    letterSpacing: "0.15em", textTransform: "uppercase", color: TOKENS.steel,
+                    display: "inline-flex", alignItems: "center", gap: 8,
+                    borderRadius: 9999, padding: "7px 14px",
+                    border: `0.5px solid ${TOKENS.hairline}`,
+                  }}>
+                    <span style={{ width: 5, height: 5, borderRadius: "50%", background: TOKENS.steel, flexShrink: 0 }} />
                     {s.n} · {s.sector}
                   </span>
                   <span style={{ fontFamily: "Inter, sans-serif", fontSize: 11, letterSpacing: "0.20em", textTransform: "uppercase", color: TOKENS.body }}>

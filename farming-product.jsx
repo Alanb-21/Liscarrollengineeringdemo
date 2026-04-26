@@ -212,9 +212,9 @@ const Drawings = () => (
         </FadeUp>
       </div>
       <div className="product-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
-        <FadeUp><Placeholder label={product.drawing1} ratio="3/4" tone="light" /></FadeUp>
-        <FadeUp delay={80}><Placeholder label={product.drawing2} ratio="3/4" tone="light" /></FadeUp>
-        <FadeUp delay={160}><Placeholder label={product.drawing3} ratio="3/4" tone="light" /></FadeUp>
+        <FadeUp><Placeholder label={product.drawing1} ratio="3/4" tone="light" style={{ borderRadius: 12 }} /></FadeUp>
+        <FadeUp delay={80}><Placeholder label={product.drawing2} ratio="3/4" tone="light" style={{ borderRadius: 12 }} /></FadeUp>
+        <FadeUp delay={160}><Placeholder label={product.drawing3} ratio="3/4" tone="light" style={{ borderRadius: 12 }} /></FadeUp>
       </div>
     </div>
   </section>
@@ -273,7 +273,7 @@ const Installed = () => (
         </div>
       </FadeUp>
       <FadeUp delay={80}>
-        <Placeholder label={product.installedLabel} ratio="21/9" tone="steel" />
+        <Placeholder label={product.installedLabel} ratio="21/9" tone="steel" style={{ borderRadius: 12 }} />
       </FadeUp>
       <FadeUp delay={140}>
         <p style={{ fontFamily: "Inter, sans-serif", fontSize: 13.5, color: TOKENS.body, marginTop: 18, letterSpacing: "0.01em", lineHeight: 1.5 }}>

@@ -36,9 +36,16 @@ const TeamGrid = () => (
         {TEAM.map((p, i) => (
           <FadeUp key={p.name} delay={(i % 4) * 80}>
             <div>
-              <Placeholder label={`PORTRAIT · ${p.name}`} ratio="3/4" tone={i % 2 === 0 ? "navy" : "steel"} />
+              <Placeholder label={`PORTRAIT · ${p.name}`} ratio="3/4" tone={i % 2 === 0 ? "navy" : "steel"} style={{ borderRadius: 12 }} />
               <div style={{ paddingTop: 20 }}>
-                <div style={{ fontFamily: "Inter, sans-serif", fontSize: 11, fontWeight: 500, letterSpacing: "0.20em", textTransform: "uppercase", color: TOKENS.steel, marginBottom: 8 }}>
+                <div style={{
+                  display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 12,
+                  fontFamily: "Inter, sans-serif", fontSize: 11, fontWeight: 500,
+                  letterSpacing: "0.15em", textTransform: "uppercase", color: TOKENS.steel,
+                  borderRadius: 9999, padding: "6px 12px",
+                  border: `0.5px solid ${TOKENS.hairline}`,
+                }}>
+                  <span style={{ width: 5, height: 5, borderRadius: "50%", background: TOKENS.steel, flexShrink: 0 }} />
                   Joined {p.joined}
                 </div>
                 <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 26, letterSpacing: "0.02em", color: TOKENS.navy, margin: "0 0 4px 0", textTransform: "uppercase", lineHeight: 1.05 }}>
