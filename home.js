@@ -1,9 +1,5 @@
 /* global React, ReactDOM */
 const {
-  useState,
-  useEffect
-} = React;
-const {
   TOKENS,
   FadeUp,
   PageFade,

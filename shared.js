@@ -622,5 +622,8 @@ Object.assign(window, {
   Logo,
   Nav,
   Footer,
-  INDUSTRIES
+  INDUSTRIES,
+  useState,
+  useEffect,
+  useRef
 });

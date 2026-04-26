@@ -608,4 +608,7 @@ Object.assign(window, {
   Nav,
   Footer,
   INDUSTRIES,
+  useState,
+  useEffect,
+  useRef,
 });

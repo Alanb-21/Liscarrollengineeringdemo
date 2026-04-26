@@ -1,5 +1,4 @@
 /* global React, ReactDOM */
-const { useState, useEffect } = React;
 const { TOKENS, FadeUp, PageFade, Placeholder, Kicker, ctaPrimary, ctaSecondary, Nav, Footer, INDUSTRIES } = window;
 
 // HERO
