@@ -216,8 +216,13 @@ const ctaSecondary = {
 
 // =========================================================================
 // LOGO
+// Direct on transparent background (no white pill). If the source PNG has a
+// white halo baked in, mix-blend-mode: multiply blends it onto the page
+// surface as an interim fix.
+// TODO: replace assets/liscarroll-logo.png with a transparent-background SVG
+//       and remove the mix-blend-mode workaround below.
 // =========================================================================
-const Logo = ({ height = 40, dark = false }) => (
+const Logo = ({ height = 36, dark = false }) => (
   <a href="index.html" style={{ display: "inline-flex", alignItems: "center", textDecoration: "none" }}>
     <img
       src="assets/liscarroll-logo.png"
@@ -226,6 +231,7 @@ const Logo = ({ height = 40, dark = false }) => (
         height,
         width: "auto",
         display: "block",
+        mixBlendMode: dark ? "lighten" : "multiply",
         filter: dark ? "brightness(1.05)" : "none",
       }}
     />
@@ -262,7 +268,11 @@ const Nav = ({ current = "" }) => {
           top: 0,
           zIndex: 50,
           padding: "14px 24px",
-          background: "transparent",
+          background: scrolled ? "rgba(255,255,255,0.85)" : "transparent",
+          backdropFilter: scrolled ? "blur(12px)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
+          borderBottom: scrolled ? `0.5px solid ${TOKENS.hairline}` : "0.5px solid transparent",
+          transition: "background 200ms ease, backdrop-filter 200ms ease, border-color 200ms ease",
           pointerEvents: "none",
         }}
       >
@@ -272,46 +282,23 @@ const Nav = ({ current = "" }) => {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              background: "rgba(255,255,255,0.96)",
-              backdropFilter: "blur(12px)",
-              WebkitBackdropFilter: "blur(12px)",
-              borderRadius: 9999,
-              border: `0.5px solid ${scrolled ? TOKENS.brushed : TOKENS.hairline}`,
-              padding: "6px 6px 6px 22px",
-              transition: "border-color 200ms ease",
+              background: "transparent",
+              padding: "0",
             }}
           >
-            <Logo height={40} />
+            <Logo height={36} />
 
             <nav className="desktop-nav" style={{ display: "flex", gap: 2, alignItems: "center" }}>
               {NAV_LINKS.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
-                  style={{
-                    fontFamily: "Inter, sans-serif",
-                    fontSize: 13.5,
-                    fontWeight: 500,
-                    color: TOKENS.navy,
-                    textDecoration: "none",
-                    letterSpacing: "0.01em",
-                    padding: "9px 16px",
-                    borderRadius: 9999,
-                    background: current === item.href ? TOKENS.hairline : "transparent",
-                    transition: "background 200ms ease",
-                    display: "inline-block",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (current !== item.href) e.currentTarget.style.background = TOKENS.paper;
-                  }}
-                  onMouseLeave={(e) => {
-                    if (current !== item.href) e.currentTarget.style.background = "transparent";
-                  }}
+                  className={`nav-link${current === item.href ? " is-current" : ""}`}
                 >
                   {item.label}
                 </a>
               ))}
-              <a href="contact.html" style={{ ...ctaPrimary, padding: "11px 22px", fontSize: 13, marginLeft: 6 }}>
+              <a href="contact.html" className="nav-cta">
                 Start a Project
               </a>
             </nav>
@@ -352,7 +339,7 @@ const Nav = ({ current = "" }) => {
         }}
       >
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 48 }}>
-          <Logo height={36} />
+          <Logo height={32} />
           <button
             onClick={() => setMobileOpen(false)}
             style={{
