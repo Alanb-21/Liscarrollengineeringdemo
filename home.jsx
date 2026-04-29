@@ -1,96 +1,241 @@
 /* global React, ReactDOM */
 
-// HERO
-const Hero = () => (
-  <section style={{ background: TOKENS.white, borderBottom: `1px solid ${TOKENS.hairline}` }}>
-    <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 32px" }}>
-      <div className="hero-grid" style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: 80,
-        alignItems: "center",
-        minHeight: "82vh",
-        paddingTop: 80,
-        paddingBottom: 80,
-      }}>
-        <div>
-          <FadeUp><Kicker style={{ marginBottom: 32 }}>Est. 1973 · Liscarroll, Co. Cork</Kicker></FadeUp>
-          <FadeUp delay={120}>
-            <h1 style={{
-              fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: "clamp(56px, 8vw, 120px)",
-              lineHeight: 0.92,
-              letterSpacing: "0.02em",
-              color: TOKENS.navy,
-              margin: 0,
-              textTransform: "uppercase",
-            }}>
-              Stainless<br />steel, built<br />to outlast.
+// HERO — premium pass: real photo, ken burns, staggered load motion, anchored stat card.
+// Unsplash hero image: a moody industrial / stainless plant frame.
+// TODO: replace Unsplash URL with real Liscarroll plant-floor photography once shot.
+const HERO_IMG = "https://images.unsplash.com/photo-1565043666747-69f6646db940?auto=format&fit=crop&w=1600&q=80";
+const HERO_IMG_FALLBACKS = [
+  "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1600&q=80",
+  "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1600&q=80",
+];
+
+const HEADLINE_WORDS = [
+  { text: "Stainless", lineEnd: false },
+  { text: "Steel.",    lineEnd: true  },
+  { text: "Built",     lineEnd: false },
+  { text: "to",        lineEnd: false },
+  { text: "Outlast.",  lineEnd: false },
+];
+
+const Hero = () => {
+  const onImgError = (e) => {
+    const tried = Number(e.currentTarget.dataset.tried || 0);
+    if (tried < HERO_IMG_FALLBACKS.length) {
+      e.currentTarget.dataset.tried = String(tried + 1);
+      e.currentTarget.src = HERO_IMG_FALLBACKS[tried];
+    }
+  };
+  return (
+    <section style={{ background: TOKENS.white, borderBottom: `1px solid ${TOKENS.hairline}`, position: "relative" }}>
+      <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 32px" }}>
+        <div className="hero-grid" style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: 80,
+          alignItems: "center",
+          minHeight: "82vh",
+          paddingTop: 80,
+          paddingBottom: 80,
+        }}>
+          <div>
+            <div className="hero-anim hero-anim-eyebrow">
+              <Kicker style={{ marginBottom: 32 }}>Est. 1973 · Liscarroll, Co. Cork</Kicker>
+            </div>
+
+            <h1
+              className="hero-headline"
+              style={{
+                fontFamily: "'Bebas Neue', sans-serif",
+                fontSize: "clamp(56px, 8vw, 120px)",
+                lineHeight: 0.92,
+                letterSpacing: "0.02em",
+                color: TOKENS.navy,
+                margin: 0,
+                textTransform: "uppercase",
+                textWrap: "balance",
+                WebkitTextWrap: "balance",
+              }}
+            >
+              {HEADLINE_WORDS.map((w, i) => (
+                <React.Fragment key={i}>
+                  <span
+                    className="hero-anim hero-anim-word"
+                    style={{ display: "inline-block", animationDelay: `${400 + i * 60}ms` }}
+                  >
+                    {w.text}
+                  </span>
+                  {i < HEADLINE_WORDS.length - 1 && (w.lineEnd ? <br /> : " ")}
+                </React.Fragment>
+              ))}
             </h1>
-          </FadeUp>
-          <FadeUp delay={240}>
-            <p style={{
-              fontFamily: "Inter, sans-serif",
-              fontSize: 17,
-              lineHeight: 1.55,
-              color: TOKENS.body,
-              maxWidth: 460,
-              marginTop: 36,
-              marginBottom: 0,
-            }}>
+
+            <p
+              className="hero-anim hero-anim-body"
+              style={{
+                fontFamily: "Inter, sans-serif",
+                fontSize: 17,
+                lineHeight: 1.55,
+                color: TOKENS.body,
+                maxWidth: 460,
+                marginTop: 36,
+                marginBottom: 0,
+              }}
+            >
               Fifty years of precision stainless steel engineering for farming, food, pharma, leisure and bespoke. Built in Cork. Shipped worldwide.
             </p>
-          </FadeUp>
-          <FadeUp delay={340}>
-            <div style={{ display: "flex", gap: 14, marginTop: 40, flexWrap: "wrap" }}>
+
+            <div className="hero-anim hero-anim-cta" style={{ display: "flex", gap: 14, marginTop: 40, flexWrap: "wrap" }}>
               <a href="contact.html" style={ctaPrimary}>Start a Project</a>
               <a href="case-studies.html" style={ctaSecondary}>View our work</a>
             </div>
-          </FadeUp>
-        </div>
+          </div>
 
-        <FadeUp delay={200}>
           <div style={{ position: "relative" }}>
-            <Placeholder label="HERO · weld in progress, plant floor" ratio="4/5" tone="navy" />
-            <div className="hero-badge" style={{
-              position: "absolute",
-              left: -28,
-              bottom: -28,
-              background: TOKENS.white,
-              padding: "20px 24px",
-              border: `0.5px solid ${TOKENS.brushed}`,
-              borderRadius: 18,
-              maxWidth: 240,
+            <div className="hero-image-wrap" style={{
+              position: "relative",
+              width: "100%",
+              aspectRatio: "4/5",
+              overflow: "hidden",
+              borderRadius: 4,
+              background: TOKENS.navy,
             }}>
-              <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 56, color: TOKENS.navy, lineHeight: 1, letterSpacing: "0.02em" }}>50+</div>
-              <div style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: TOKENS.body, marginTop: 6, lineHeight: 1.4 }}>
-                Years of stainless steel engineering, in continuous operation since 1973.
+              <img
+                src={HERO_IMG}
+                onError={onImgError}
+                data-tried="0"
+                alt="Stainless steel fabrication on the Liscarroll Engineering plant floor — sparks from a TIG weld"
+                className="hero-anim hero-anim-image hero-image-kenburns"
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                  display: "block",
+                }}
+              />
+              <div style={{
+                position: "absolute",
+                inset: 0,
+                background: "linear-gradient(180deg, rgba(10,22,40,0.40) 0%, rgba(10,22,40,0) 50%, rgba(10,22,40,0.20) 100%)",
+                pointerEvents: "none",
+              }} />
+
+              {/* PLANT FLOOR caption tag — bottom-left of the image, hidden on mobile */}
+              <div className="hero-caption" style={{
+                position: "absolute",
+                left: 24,
+                bottom: 24,
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+                pointerEvents: "none",
+              }}>
+                <span style={{ display: "inline-block", width: 2, height: 14, background: TOKENS.steel }} />
+                <span style={{
+                  color: "rgba(255,255,255,0.8)",
+                  fontFamily: "Inter, sans-serif",
+                  fontSize: 11,
+                  fontWeight: 600,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                }}>
+                  Plant Floor · Liscarroll
+                </span>
+              </div>
+            </div>
+
+            <div className="hero-badge hero-anim hero-anim-card" style={{
+              position: "absolute",
+              left: 0,
+              bottom: 0,
+              transform: "translate(-30%, 50%)",
+              background: TOKENS.white,
+              maxWidth: 280,
+            }}>
+              {/* Steel Blue accent square — top-left corner */}
+              <span aria-hidden="true" style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: 4,
+                height: 4,
+                background: TOKENS.steel,
+              }} />
+              <div className="hero-badge-inner">
+                <div className="hero-badge-num" style={{
+                  fontFamily: "'Bebas Neue', sans-serif",
+                  color: TOKENS.navy,
+                  lineHeight: 1,
+                  letterSpacing: "0.02em",
+                }}>50+</div>
+                <div className="hero-badge-label" style={{
+                  fontFamily: "Inter, sans-serif",
+                  fontWeight: 500,
+                  color: TOKENS.body,
+                }}>
+                  Years of stainless steel engineering, in continuous operation since 1973.
+                </div>
               </div>
             </div>
           </div>
-        </FadeUp>
-      </div>
-    </div>
-
-    <FadeUp>
-      <div style={{
-        borderTop: `1px solid ${TOKENS.hairline}`,
-        borderBottom: `1px solid ${TOKENS.hairline}`,
-        background: TOKENS.white,
-      }}>
-        <div style={{
-          display: "flex", gap: 60, padding: "22px 32px", maxWidth: 1440, margin: "0 auto",
-          alignItems: "center", flexWrap: "wrap", justifyContent: "space-between",
-        }}>
-          <span style={{ fontFamily: "Inter, sans-serif", fontSize: 11, letterSpacing: "0.20em", textTransform: "uppercase", color: TOKENS.body, fontWeight: 500 }}>
-            Trusted by
-          </span>
-          {["Ballymaloe", "Dale Farm", "Hot Box", "Croke Park", "Kerry Group", "Glanbia"].map((c) => (
-            <span key={c} style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 22, letterSpacing: "0.05em", color: TOKENS.navy, opacity: 0.65 }}>{c}</span>
-          ))}
         </div>
       </div>
-    </FadeUp>
+
+      {/* Scroll indicator — pulsing line, hidden on short viewports */}
+      <div className="hero-scroll-indicator" aria-hidden="true">
+        <span className="hero-scroll-line" />
+        <span className="hero-scroll-square" />
+      </div>
+    </section>
+  );
+};
+
+// TRUST STRIP — wordmark stand-ins, full SVG logos to follow.
+// TODO: Replace text wordmarks with actual SVG client logos once licensed.
+const TRUST_CLIENTS = ["Croke Park", "Glanbia", "Dairygold", "Kerry Group", "Musgrave"];
+const TrustStrip = () => (
+  <section className="trust-strip" style={{
+    background: TOKENS.white,
+    borderBottom: `1px solid ${TOKENS.hairline}`,
+  }}>
+    <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 32px" }}>
+      <div style={{
+        textAlign: "center",
+        fontFamily: "Inter, sans-serif",
+        fontSize: 11,
+        fontWeight: 600,
+        letterSpacing: "0.14em",
+        textTransform: "uppercase",
+        color: "#6B7785",
+        marginBottom: 24,
+      }}>
+        Trusted across Ireland's leading industries
+      </div>
+      <div className="trust-row">
+        {TRUST_CLIENTS.map((name) => (
+          <span key={name} className="trust-mark" style={{
+            fontFamily: "Inter, sans-serif",
+            fontSize: 16,
+            fontWeight: 600,
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: TOKENS.navy,
+            opacity: 0.4,
+            transition: "opacity 200ms ease",
+            maxHeight: 36,
+            lineHeight: "36px",
+            whiteSpace: "nowrap",
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.opacity = 1; }}
+          onMouseLeave={(e) => { e.currentTarget.style.opacity = 0.4; }}
+          >
+            {name}
+          </span>
+        ))}
+      </div>
+    </div>
   </section>
 );
 
@@ -313,6 +458,7 @@ const App = () => (
     <Nav current="" />
     <main>
       <Hero />
+      <TrustStrip />
       <IndustriesPreview />
       <CaseStudy />
       <ContactBand />
