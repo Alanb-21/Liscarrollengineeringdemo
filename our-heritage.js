@@ -1,6 +1,6 @@
 /* global React, ReactDOM */
 
-const TIMELINE = [["1973", "Founded in Liscarroll", "John O'Sullivan opens a small fabrication shop in Liscarroll, Co. Cork. First job: a milk cooling tank for a neighbouring dairy farm."], ["1981", "First export contract", "Refurbished equipment shipped to a creamery in the United Kingdom. The export business begins quietly."], ["1989", "Into food production", "Expansion from dairy farming into full food-production fabrication. Butter producers and creameries become long-term clients."], ["1996", "Second generation joins", "Mary O'Sullivan joins the business full-time. Operations, scheduling and supplier relations are professionalised."], ["2004", "Move to Rockspring", "Relocation to the current 20,000 sq ft facility at Rockspring. CNC machinery and full craneage installed."], ["2011", "Pharmaceutical work begins", "First passivated vessels delivered to an Irish pharmaceutical client. Mirror-polished GMP work becomes a core capability."], ["2017", "ISO accreditation", "Quality management system audited and certified to ISO 9001 across every manufacturing process."], ["2021", "Croke Park", "Bespoke 'Tap. Take. Go.' bar fabrication delivered for one of Ireland's most-watched venues."], ["2026", "Five sectors served", "Farming, food, pharma, leisure and bespoke — all from the same Cork plant. Three generations of the O'Sullivan family still on the books."]];
+const TIMELINE = [["1973", "Founded in Liscarroll", "Liscarroll Engineering opens a small fabrication shop in Liscarroll, Co. Cork. First job: a milk cooling tank for a neighbouring dairy farm."], ["1981", "First export contract", "Refurbished equipment shipped to a creamery in the United Kingdom. The export business begins quietly."], ["1989", "Into food production", "Expansion from dairy farming into full food-production fabrication. Butter producers and creameries become long-term clients."], ["1996", "Operations professionalised", "A full-time operations function is established. Scheduling, supplier relations and quality controls move onto a formal footing."], ["2004", "Move to Rockspring", "Relocation to the current 20,000 sq ft facility at Rockspring. CNC machinery and full craneage installed."], ["2011", "Pharmaceutical work begins", "First passivated vessels delivered to an Irish pharmaceutical client. Mirror-polished GMP work becomes a core capability."], ["2017", "ISO accreditation", "Quality management system audited and certified to ISO 9001 across every manufacturing process."], ["2021", "Croke Park", "Bespoke 'Tap. Take. Go.' bar fabrication delivered for one of Ireland's most-watched venues."], ["2026", "Five sectors, shipped worldwide", "Farming, food, pharma, leisure and bespoke — all from the same Cork plant, with the same team carrying the standard forward."]];
 const Hero = () => /*#__PURE__*/React.createElement("section", {
   style: {
     background: TOKENS.white,
@@ -41,7 +41,7 @@ const Hero = () => /*#__PURE__*/React.createElement("section", {
     maxWidth: 640,
     marginTop: 32
   }
-}, "One family. One Cork plant. Fifty-three years of stainless steel manufacturing \u2014 and counting."))));
+}, "One Cork plant. One team. Fifty-three years of stainless steel manufacturing \u2014 and counting."))));
 const HeritageImages = () => /*#__PURE__*/React.createElement("section", {
   style: {
     background: TOKENS.white,
@@ -75,7 +75,7 @@ const HeritageImages = () => /*#__PURE__*/React.createElement("section", {
 })), /*#__PURE__*/React.createElement(FadeUp, {
   delay: 200
 }, /*#__PURE__*/React.createElement(Placeholder, {
-  label: "ARCHIVE \xB7 Founder John O'Sullivan, 1989",
+  label: "ARCHIVE \xB7 Plant floor, 1989",
   ratio: "4/3",
   tone: "steel"
 })))));
@@ -199,7 +199,7 @@ const Quote = () => /*#__PURE__*/React.createElement("section", {
     letterSpacing: "0.20em",
     textTransform: "uppercase"
   }
-}, "John O'Sullivan \xB7 Founder \xB7 1973"))));
+}, "Liscarroll Engineering \xB7 Est. 1973"))));
 const App = () => /*#__PURE__*/React.createElement(PageFade, null, /*#__PURE__*/React.createElement(Nav, {
   current: "our-heritage.html"
 }), /*#__PURE__*/React.createElement("main", null, /*#__PURE__*/React.createElement(Hero, null), /*#__PURE__*/React.createElement(HeritageImages, null), /*#__PURE__*/React.createElement(Timeline, null), /*#__PURE__*/React.createElement(Quote, null)), /*#__PURE__*/React.createElement(Footer, null));

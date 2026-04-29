@@ -40,7 +40,7 @@ const Hero = () => (
               marginTop: 36,
               marginBottom: 0,
             }}>
-              Fifty years of precision manufacturing for farming, food, pharma, leisure and bespoke. Made in Cork. Trusted nationwide.
+              Fifty years of precision stainless steel engineering for farming, food, pharma, leisure and bespoke. Built in Cork. Shipped worldwide.
             </p>
           </FadeUp>
           <FadeUp delay={340}>
