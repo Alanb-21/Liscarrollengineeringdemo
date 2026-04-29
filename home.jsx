@@ -38,7 +38,7 @@ const Hero = () => (
               marginTop: 36,
               marginBottom: 0,
             }}>
-              Fifty years of precision manufacturing for farming, food, pharma, leisure and bespoke. Made in Cork. Trusted nationwide.
+              Fifty years of precision stainless steel engineering for farming, food, pharma, leisure and bespoke. Built in Cork. Shipped worldwide.
             </p>
           </FadeUp>
           <FadeUp delay={340}>
@@ -281,6 +281,33 @@ const ContactBand = () => (
   </section>
 );
 
+// LOCATION MAP
+const LocationMap = () => (
+  <section style={{ background: TOKENS.white, borderBottom: `1px solid ${TOKENS.hairline}` }}>
+    <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 32px 80px" }}>
+      <FadeUp>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 24, marginBottom: 32 }}>
+          <Kicker>Find us</Kicker>
+          <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(36px, 4.5vw, 64px)", lineHeight: 0.95, letterSpacing: "0.02em", color: TOKENS.navy, margin: 0, textTransform: "uppercase" }}>
+            Rockspring, Liscarroll, Co. Cork.
+          </h2>
+        </div>
+      </FadeUp>
+      <FadeUp delay={120}>
+        <div style={{ position: "relative", width: "100%", paddingTop: "42%", border: `0.5px solid ${TOKENS.hairline}`, borderRadius: 12, overflow: "hidden" }}>
+          <iframe
+            title="Liscarroll Engineering — Rockspring, Liscarroll, Co. Cork"
+            src="https://www.google.com/maps?q=Liscarroll+Engineering,+Rockspring,+Liscarroll,+Co.+Cork,+Ireland&output=embed"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
+          />
+        </div>
+      </FadeUp>
+    </div>
+  </section>
+);
+
 const App = () => (
   <PageFade>
     <Nav current="" />
@@ -289,6 +316,7 @@ const App = () => (
       <IndustriesPreview />
       <CaseStudy />
       <ContactBand />
+      <LocationMap />
     </main>
     <Footer />
   </PageFade>

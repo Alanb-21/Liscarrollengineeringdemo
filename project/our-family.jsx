@@ -2,14 +2,14 @@
 const { TOKENS, FadeUp, PageFade, Placeholder, Kicker, ctaPrimary, ctaSecondary, Nav, Footer } = window;
 
 const TEAM = [
-  { name: "John O'Sullivan", role: "Founder & Managing Director", bio: "Founded Liscarroll Engineering in 1973. Still on the floor most days.", joined: "1973" },
-  { name: "Mary O'Sullivan", role: "Operations Director", bio: "Runs scheduling, supplier relations and the books — the engine room.", joined: "1985" },
-  { name: "Patrick O'Sullivan", role: "Head of Fabrication", bio: "Coded welder. Trains every new fabricator who comes through our doors.", joined: "2002" },
-  { name: "Aoife Murphy", role: "Quality & Compliance", bio: "ISO lead. If a weld leaves our shop, it has her sign-off.", joined: "2014" },
-  { name: "Declan Walsh", role: "Senior CNC Engineer", bio: "Twenty years on 5-axis. Will out-precision any spec sheet you give him.", joined: "2008" },
-  { name: "Ciara Kelly", role: "Project Manager — Pharma & Food", bio: "Runs our regulated-industry projects from quote to handover.", joined: "2019" },
-  { name: "Brian Lynch", role: "Senior Welder", bio: "Coded to EN ISO 9606. Mirror-finish specialist. Quiet. Brilliant.", joined: "2011" },
-  { name: "Sinead Ryan", role: "Design Engineer", bio: "Takes the napkin sketches and turns them into manufacturing drawings.", joined: "2021" },
+  { role: "Managing Director", bio: "Holds the long view: the workload, the standards and the team that delivers them.", joined: "1985" },
+  { role: "Operations Director", bio: "Runs scheduling, supplier relations and the books — the engine room.", joined: "1996" },
+  { role: "Head of Fabrication", bio: "Coded welder. Trains every new fabricator who comes through our doors.", joined: "2002" },
+  { role: "Quality & Compliance Lead", bio: "ISO lead. If a weld leaves our shop, it has the sign-off of this desk.", joined: "2014" },
+  { role: "Senior CNC Engineer", bio: "Two decades on 5-axis. Will out-precision any spec sheet you put in front of him.", joined: "2008" },
+  { role: "Project Manager — Pharma & Food", bio: "Runs regulated-industry projects from quote to handover.", joined: "2019" },
+  { role: "Senior Welder", bio: "Coded to EN ISO 9606. Mirror-finish specialist. Quiet. Brilliant.", joined: "2011" },
+  { role: "Design Engineer", bio: "Takes napkin sketches and turns them into manufacturing drawings.", joined: "2021" },
 ];
 
 const Hero = () => (
@@ -18,12 +18,12 @@ const Hero = () => (
       <FadeUp><Kicker style={{ marginBottom: 32 }}>The people who build it</Kicker></FadeUp>
       <FadeUp delay={120}>
         <h1 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(56px, 8vw, 120px)", lineHeight: 0.92, letterSpacing: "0.02em", color: TOKENS.navy, margin: 0, textTransform: "uppercase", maxWidth: 1100 }}>
-          Our family.
+          Our team.
         </h1>
       </FadeUp>
       <FadeUp delay={220}>
         <p style={{ fontFamily: "Inter, sans-serif", fontSize: 18, lineHeight: 1.55, color: TOKENS.body, maxWidth: 640, marginTop: 32 }}>
-          Three generations of the O'Sullivan family, plus the engineers, welders and project managers who have made Liscarroll their working home. Every project you commission is in their hands.
+          The engineers, welders, fabricators and project managers behind every Liscarroll job. Most have been on this floor for a decade or more — the craft, the standards and the longevity are why projects land on schedule.
         </p>
       </FadeUp>
     </div>
@@ -35,19 +35,16 @@ const TeamGrid = () => (
     <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 32px" }}>
       <div className="team-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 32 }}>
         {TEAM.map((p, i) => (
-          <FadeUp key={p.name} delay={(i % 4) * 80}>
+          <FadeUp key={p.role} delay={(i % 4) * 80}>
             <div>
-              <Placeholder label={`PORTRAIT · ${p.name}`} ratio="3/4" tone={i % 2 === 0 ? "navy" : "steel"} />
+              <Placeholder label={`PORTRAIT · ${p.role}`} ratio="3/4" tone={i % 2 === 0 ? "navy" : "steel"} />
               <div style={{ paddingTop: 20 }}>
                 <div style={{ fontFamily: "Inter, sans-serif", fontSize: 11, fontWeight: 500, letterSpacing: "0.20em", textTransform: "uppercase", color: TOKENS.steel, marginBottom: 8 }}>
                   Joined {p.joined}
                 </div>
-                <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 26, letterSpacing: "0.02em", color: TOKENS.navy, margin: "0 0 4px 0", textTransform: "uppercase", lineHeight: 1.05 }}>
-                  {p.name}
-                </h3>
-                <div style={{ fontFamily: "Inter, sans-serif", fontSize: 13, fontWeight: 500, color: TOKENS.body, marginBottom: 12 }}>
+                <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 26, letterSpacing: "0.02em", color: TOKENS.navy, margin: "0 0 12px 0", textTransform: "uppercase", lineHeight: 1.05 }}>
                   {p.role}
-                </div>
+                </h3>
                 <p style={{ fontFamily: "Inter, sans-serif", fontSize: 13.5, lineHeight: 1.55, color: TOKENS.body, margin: 0 }}>
                   {p.bio}
                 </p>

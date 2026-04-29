@@ -1,44 +1,36 @@
 /* global React, ReactDOM */
 
 const TEAM = [{
-  name: "John O'Sullivan",
-  role: "Founder & Managing Director",
-  bio: "Founded Liscarroll Engineering in 1973. Still on the floor most days.",
-  joined: "1973"
-}, {
-  name: "Mary O'Sullivan",
-  role: "Operations Director",
-  bio: "Runs scheduling, supplier relations and the books — the engine room.",
+  role: "Managing Director",
+  bio: "Holds the long view: the workload, the standards and the team that delivers them.",
   joined: "1985"
 }, {
-  name: "Patrick O'Sullivan",
+  role: "Operations Director",
+  bio: "Runs scheduling, supplier relations and the books — the engine room.",
+  joined: "1996"
+}, {
   role: "Head of Fabrication",
   bio: "Coded welder. Trains every new fabricator who comes through our doors.",
   joined: "2002"
 }, {
-  name: "Aoife Murphy",
-  role: "Quality & Compliance",
-  bio: "ISO lead. If a weld leaves our shop, it has her sign-off.",
+  role: "Quality & Compliance Lead",
+  bio: "ISO lead. If a weld leaves our shop, it has the sign-off of this desk.",
   joined: "2014"
 }, {
-  name: "Declan Walsh",
   role: "Senior CNC Engineer",
-  bio: "Twenty years on 5-axis. Will out-precision any spec sheet you give him.",
+  bio: "Two decades on 5-axis. Will out-precision any spec sheet you put in front of him.",
   joined: "2008"
 }, {
-  name: "Ciara Kelly",
   role: "Project Manager — Pharma & Food",
-  bio: "Runs our regulated-industry projects from quote to handover.",
+  bio: "Runs regulated-industry projects from quote to handover.",
   joined: "2019"
 }, {
-  name: "Brian Lynch",
   role: "Senior Welder",
   bio: "Coded to EN ISO 9606. Mirror-finish specialist. Quiet. Brilliant.",
   joined: "2011"
 }, {
-  name: "Sinead Ryan",
   role: "Design Engineer",
-  bio: "Takes the napkin sketches and turns them into manufacturing drawings.",
+  bio: "Takes napkin sketches and turns them into manufacturing drawings.",
   joined: "2021"
 }];
 const Hero = () => /*#__PURE__*/React.createElement("section", {
@@ -70,7 +62,7 @@ const Hero = () => /*#__PURE__*/React.createElement("section", {
     textTransform: "uppercase",
     maxWidth: 1100
   }
-}, "Our family.")), /*#__PURE__*/React.createElement(FadeUp, {
+}, "Our team.")), /*#__PURE__*/React.createElement(FadeUp, {
   delay: 220
 }, /*#__PURE__*/React.createElement("p", {
   style: {
@@ -81,7 +73,7 @@ const Hero = () => /*#__PURE__*/React.createElement("section", {
     maxWidth: 640,
     marginTop: 32
   }
-}, "Three generations of the O'Sullivan family, plus the engineers, welders and project managers who have made Liscarroll their working home. Every project you commission is in their hands."))));
+}, "The engineers, welders, fabricators and project managers behind every Liscarroll job. Most have been on this floor for a decade or more \u2014 the craft, the standards and the longevity are why projects land on schedule."))));
 const TeamGrid = () => /*#__PURE__*/React.createElement("section", {
   style: {
     background: TOKENS.white,
@@ -102,10 +94,10 @@ const TeamGrid = () => /*#__PURE__*/React.createElement("section", {
     gap: 32
   }
 }, TEAM.map((p, i) => /*#__PURE__*/React.createElement(FadeUp, {
-  key: p.name,
+  key: p.role,
   delay: i % 4 * 80
 }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Placeholder, {
-  label: `PORTRAIT · ${p.name}`,
+  label: `PORTRAIT · ${p.role}`,
   ratio: "3/4",
   tone: i % 2 === 0 ? "navy" : "steel",
   style: {
@@ -145,17 +137,9 @@ const TeamGrid = () => /*#__PURE__*/React.createElement("section", {
     fontSize: 26,
     letterSpacing: "0.02em",
     color: TOKENS.navy,
-    margin: "0 0 4px 0",
+    margin: "0 0 12px 0",
     textTransform: "uppercase",
     lineHeight: 1.05
-  }
-}, p.name), /*#__PURE__*/React.createElement("div", {
-  style: {
-    fontFamily: "Inter, sans-serif",
-    fontSize: 13,
-    fontWeight: 500,
-    color: TOKENS.body,
-    marginBottom: 12
   }
 }, p.role), /*#__PURE__*/React.createElement("p", {
   style: {
