@@ -85,7 +85,7 @@ const Hero = () => {
             </p>
 
             <div className="hero-anim hero-anim-cta" style={{ display: "flex", gap: 14, marginTop: 40, flexWrap: "wrap" }}>
-              <a href="contact.html" style={ctaPrimary}>Start a Project</a>
+              <a href="contact.html" style={ctaPrimary}>Get a quote</a>
               <a href="case-studies.html" style={ctaSecondary}>View our work</a>
             </div>
           </div>
@@ -169,7 +169,9 @@ const Hero = () => {
                   color: TOKENS.navy,
                   lineHeight: 1,
                   letterSpacing: "0.02em",
-                }}>50+</div>
+                }}>
+                  <Stat value={50} suffix="+" duration={1600} />
+                </div>
                 <div className="hero-badge-label" style={{
                   fontFamily: "Inter, sans-serif",
                   fontWeight: 500,
@@ -192,15 +194,25 @@ const Hero = () => {
   );
 };
 
-// TRUST STRIP — wordmark stand-ins, full SVG logos to follow.
-// TODO: Replace text wordmarks with actual SVG client logos once licensed.
-const TRUST_CLIENTS = ["Croke Park", "Glanbia", "Dairygold", "Kerry Group", "Musgrave"];
+// TRUST STRIP — anonymised sectoral pills in a marquee. Replaces the
+// previous wordmark stand-ins until permissioned client logos are in
+// hand. The pills describe sectors and project types we've delivered for.
+const TRUST_SECTORS = [
+  "Ireland's largest dairy co-ops",
+  "Food & beverage producers",
+  "Pharma manufacturers",
+  "Sports venues & hospitality",
+  "Cleanroom & GMP clients",
+  "Wellness & leisure brands",
+  "Architectural fit-out",
+  "National retailers",
+];
 const TrustStrip = () => (
   <section className="trust-strip" style={{
     background: TOKENS.white,
     borderBottom: `1px solid ${TOKENS.hairline}`,
   }}>
-    <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 32px" }}>
+    <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 0" }}>
       <div style={{
         textAlign: "center",
         fontFamily: "Inter, sans-serif",
@@ -210,31 +222,11 @@ const TrustStrip = () => (
         textTransform: "uppercase",
         color: "#6B7785",
         marginBottom: 24,
+        padding: "0 24px",
       }}>
-        Trusted across Ireland's leading industries
+        Fifty years of stainless steel for —
       </div>
-      <div className="trust-row">
-        {TRUST_CLIENTS.map((name) => (
-          <span key={name} className="trust-mark" style={{
-            fontFamily: "Inter, sans-serif",
-            fontSize: 16,
-            fontWeight: 600,
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            color: TOKENS.navy,
-            opacity: 0.4,
-            transition: "opacity 200ms ease",
-            maxHeight: 36,
-            lineHeight: "36px",
-            whiteSpace: "nowrap",
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.opacity = 1; }}
-          onMouseLeave={(e) => { e.currentTarget.style.opacity = 0.4; }}
-          >
-            {name}
-          </span>
-        ))}
-      </div>
+      <Marquee items={TRUST_SECTORS} speed={42} gap={32} />
     </div>
   </section>
 );
@@ -352,10 +344,18 @@ const CaseStudy = () => (
 
           <FadeUp delay={300}>
             <div style={{ marginTop: 56, display: "grid", gridTemplateColumns: "1fr 1fr 1fr", borderTop: "1px solid rgba(192,200,209,0.25)", paddingTop: 32, gap: 24 }}>
-              {[["38m", "Continuous run length"], ["AISI 304", "Food-grade stainless"], ["12 wks", "Designed to delivered"]].map(([n, l]) => (
-                <div key={l}>
-                  <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 36, color: "#fff", letterSpacing: "0.02em", lineHeight: 1 }}>{n}</div>
-                  <div style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#9DBED5", marginTop: 8, lineHeight: 1.4 }}>{l}</div>
+              {[
+                { kind: "stat", value: 38, suffix: "m", label: "Continuous run length" },
+                { kind: "text", value: "AISI 304", label: "Food-grade stainless" },
+                { kind: "stat", value: 12, suffix: " wks", label: "Designed to delivered" },
+              ].map((s) => (
+                <div key={s.label}>
+                  <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 36, color: "#fff", letterSpacing: "0.02em", lineHeight: 1 }}>
+                    {s.kind === "stat"
+                      ? <Stat value={s.value} suffix={s.suffix} duration={1400} />
+                      : s.value}
+                  </div>
+                  <div style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#9DBED5", marginTop: 8, lineHeight: 1.4 }}>{s.label}</div>
                 </div>
               ))}
             </div>
@@ -418,7 +418,7 @@ const ContactBand = () => (
       </FadeUp>
       <FadeUp delay={320}>
         <div style={{ display: "flex", gap: 14, justifyContent: "center", marginTop: 40, flexWrap: "wrap" }}>
-          <a href="contact.html" style={ctaPrimary}>Start a Project</a>
+          <a href="contact.html" style={ctaPrimary}>Talk to engineering</a>
           <a href="tel:+35302248200" style={ctaSecondary}>+353 (0)22 48200</a>
         </div>
       </FadeUp>
@@ -426,37 +426,85 @@ const ContactBand = () => (
   </section>
 );
 
-// LOCATION MAP
-const LocationMap = () => (
-  <section style={{ background: TOKENS.white, borderBottom: `1px solid ${TOKENS.hairline}` }}>
-    <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 32px 80px" }}>
-      <FadeUp>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 24, marginBottom: 32 }}>
-          <Kicker>Find us</Kicker>
-          <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(36px, 4.5vw, 64px)", lineHeight: 0.95, letterSpacing: "0.02em", color: TOKENS.navy, margin: 0, textTransform: "uppercase" }}>
-            Rockspring, Liscarroll, Co. Cork.
-          </h2>
-        </div>
-      </FadeUp>
-      <FadeUp delay={120}>
-        <div style={{ position: "relative", width: "100%", paddingTop: "42%", border: `0.5px solid ${TOKENS.hairline}`, borderRadius: 12, overflow: "hidden" }}>
-          <iframe
-            title="Liscarroll Engineering — Rockspring, Liscarroll, Co. Cork"
-            src="https://www.google.com/maps?q=Liscarroll+Engineering,+Rockspring,+Liscarroll,+Co.+Cork,+Ireland&output=embed"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
-          />
-        </div>
-      </FadeUp>
-    </div>
-  </section>
-);
+// LOCATION MAP — gated by cookie consent. Until the visitor accepts cookies
+// (or explicitly clicks "Show map"), we render a static placeholder and do
+// not contact Google.
+const LocationMap = () => {
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    if (getConsent() === "accepted") setLoaded(true);
+    const onConsent = (e) => { if (e.detail === "accepted") setLoaded(true); };
+    document.addEventListener("le:consent", onConsent);
+    return () => document.removeEventListener("le:consent", onConsent);
+  }, []);
+  return (
+    <section style={{ background: TOKENS.white, borderBottom: `1px solid ${TOKENS.hairline}` }}>
+      <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 32px 80px" }}>
+        <FadeUp>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 24, marginBottom: 32 }}>
+            <Kicker>Find us</Kicker>
+            <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(36px, 4.5vw, 64px)", lineHeight: 0.95, letterSpacing: "0.02em", color: TOKENS.navy, margin: 0, textTransform: "uppercase" }}>
+              Rockspring, Liscarroll, Co. Cork.
+            </h2>
+          </div>
+        </FadeUp>
+        <FadeUp delay={120}>
+          <div style={{ position: "relative", width: "100%", paddingTop: "42%", border: `0.5px solid ${TOKENS.hairline}`, borderRadius: 12, overflow: "hidden", background: TOKENS.paper }}>
+            {loaded ? (
+              <iframe
+                title="Liscarroll Engineering — Rockspring, Liscarroll, Co. Cork"
+                src="https://www.google.com/maps?q=Liscarroll+Engineering,+Rockspring,+Liscarroll,+Co.+Cork,+Ireland&output=embed"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
+              />
+            ) : (
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textAlign: "center",
+                  padding: 32,
+                  background: "repeating-linear-gradient(135deg, #F4F5F7 0 14px, #EAECEF 14px 28px)",
+                }}
+              >
+                <span style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 11, letterSpacing: "0.20em", textTransform: "uppercase", color: "#6B7785", marginBottom: 16 }}>
+                  Map · Google Maps embed
+                </span>
+                <p style={{ fontFamily: "Inter, sans-serif", fontSize: 14, color: TOKENS.body, maxWidth: 460, lineHeight: 1.55, margin: "0 0 20px 0" }}>
+                  This map is provided by Google and may set cookies on your device. Click below to load it.
+                </p>
+                <button
+                  onClick={() => { setConsent("accepted"); setLoaded(true); }}
+                  style={{ ...ctaPrimary, border: "none", cursor: "pointer", fontSize: 13 }}
+                >
+                  Show map
+                </button>
+                <a
+                  href="https://www.google.com/maps?q=Liscarroll+Engineering,+Rockspring,+Liscarroll,+Co.+Cork,+Ireland"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ marginTop: 14, fontFamily: "Inter, sans-serif", fontSize: 12, color: TOKENS.body, letterSpacing: "0.10em", textTransform: "uppercase", textDecoration: "none" }}
+                >
+                  Or open in Google Maps →
+                </a>
+              </div>
+            )}
+          </div>
+        </FadeUp>
+      </div>
+    </section>
+  );
+};
 
 const App = () => (
   <PageFade>
     <Nav current="" />
-    <main>
+    <main id="main">
       <Hero />
       <TrustStrip />
       <IndustriesPreview />

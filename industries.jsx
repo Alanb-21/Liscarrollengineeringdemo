@@ -80,7 +80,7 @@ const IndustriesHub = () => (
 const App = () => (
   <PageFade>
     <Nav current="industries.html" />
-    <main>
+    <main id="main">
       <PageHero
         kicker="What we build"
         title={<>Five industries.<br />One standard.</>}

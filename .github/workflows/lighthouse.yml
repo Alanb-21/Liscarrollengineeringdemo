@@ -1,0 +1,46 @@
+name: Lighthouse CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Start static server
+        run: npx --yes http-server -p 8080 . > /dev/null 2>&1 &
+
+      - name: Wait for server
+        run: npx --yes wait-on http://127.0.0.1:8080 --timeout 30000
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            http://127.0.0.1:8080/index.html
+            http://127.0.0.1:8080/industries.html
+            http://127.0.0.1:8080/industry-farming.html
+            http://127.0.0.1:8080/product-farming-milk-cooling-tanks.html
+            http://127.0.0.1:8080/case-studies.html
+            http://127.0.0.1:8080/contact.html
+          configPath: ./.github/lighthouse/lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true

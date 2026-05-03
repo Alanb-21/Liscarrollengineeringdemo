@@ -15,12 +15,33 @@ const TOKENS = {
 };
 
 // =========================================================================
+// REDUCED MOTION HOOK
+// =========================================================================
+const usePrefersReducedMotion = () => {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduced(mq.matches);
+    update();
+    mq.addEventListener ? mq.addEventListener("change", update) : mq.addListener(update);
+    return () => {
+      mq.removeEventListener ? mq.removeEventListener("change", update) : mq.removeListener(update);
+    };
+  }, []);
+  return reduced;
+};
+
+// =========================================================================
 // FADE-UP — IntersectionObserver-driven scroll reveal
+// Honours prefers-reduced-motion: reveal immediately, no transform.
 // =========================================================================
 const FadeUp = ({ children, delay = 0, y = 24, as = "div", style = {}, ...rest }) => {
   const ref = useRef(null);
+  const reduced = usePrefersReducedMotion();
   const [shown, setShown] = useState(false);
   useEffect(() => {
+    if (reduced) { setShown(true); return; }
     if (!ref.current) return;
     const obs = new IntersectionObserver(
       (entries) => {
@@ -35,75 +56,40 @@ const FadeUp = ({ children, delay = 0, y = 24, as = "div", style = {}, ...rest }
     );
     obs.observe(ref.current);
     return () => obs.disconnect();
-  }, []);
+  }, [reduced]);
   const Tag = as;
-  return (
-    <Tag
-      ref={ref}
-      style={{
+  const motionStyle = reduced
+    ? { opacity: 1, transform: "none" }
+    : {
         opacity: shown ? 1 : 0,
         transform: shown ? "translateY(0)" : `translateY(${y}px)`,
         transition: `opacity 700ms cubic-bezier(.2,.7,.2,1) ${delay}ms, transform 800ms cubic-bezier(.2,.7,.2,1) ${delay}ms`,
         willChange: "opacity, transform",
-        ...style,
-      }}
-      {...rest}
-    >
+      };
+  return (
+    <Tag ref={ref} style={{ ...motionStyle, ...style }} {...rest}>
       {children}
     </Tag>
   );
 };
 
 // =========================================================================
-// PAGE FADE — wraps a page, fades content in on mount, intercepts internal
-// link clicks to fade out before navigation.
+// PAGE FADE — entry fade only. Navigation is no longer intercepted, so
+// internal links work at full browser speed (no artificial 320ms delay).
 // =========================================================================
 const PageFade = ({ children }) => {
-  const [state, setState] = useState("entering"); // entering -> entered -> leaving
-  const navTimeout = useRef(null);
-
+  const [entered, setEntered] = useState(false);
+  const reduced = usePrefersReducedMotion();
   useEffect(() => {
-    const t = setTimeout(() => setState("entered"), 30);
+    const t = setTimeout(() => setEntered(true), 30);
     return () => clearTimeout(t);
   }, []);
-
-  useEffect(() => {
-    const handler = (e) => {
-      // Find anchor
-      let el = e.target;
-      while (el && el.tagName !== "A") el = el.parentElement;
-      if (!el) return;
-      const href = el.getAttribute("href");
-      if (!href) return;
-      // skip external, hashes, mailto, tel, target=_blank
-      if (
-        href.startsWith("#") ||
-        href.startsWith("mailto:") ||
-        href.startsWith("tel:") ||
-        el.target === "_blank" ||
-        /^https?:\/\//.test(href)
-      )
-        return;
-      // skip if same page
-      const dest = href.split("#")[0];
-      if (!dest || dest === location.pathname.split("/").pop()) return;
-
-      e.preventDefault();
-      setState("leaving");
-      clearTimeout(navTimeout.current);
-      navTimeout.current = setTimeout(() => {
-        location.href = href;
-      }, 320);
-    };
-    document.addEventListener("click", handler);
-    return () => document.removeEventListener("click", handler);
-  }, []);
-
+  if (reduced) return <div style={{ minHeight: "100vh" }}>{children}</div>;
   return (
     <div
       style={{
-        opacity: state === "entered" ? 1 : 0,
-        transform: state === "entered" ? "translateY(0)" : "translateY(8px)",
+        opacity: entered ? 1 : 0,
+        transform: entered ? "translateY(0)" : "translateY(8px)",
         transition: "opacity 380ms cubic-bezier(.2,.7,.2,1), transform 380ms cubic-bezier(.2,.7,.2,1)",
         minHeight: "100vh",
       }}
@@ -114,7 +100,7 @@ const PageFade = ({ children }) => {
 };
 
 // =========================================================================
-// PLACEHOLDER IMAGE — striped SVG with monospace label
+// PLACEHOLDER IMAGE
 // =========================================================================
 const Placeholder = ({ label, ratio = "4/3", tone = "navy", style = {} }) => {
   const tones = {
@@ -215,15 +201,121 @@ const ctaSecondary = {
 };
 
 // =========================================================================
+// COUNT-UP — animates a number from 0 to a target value when it scrolls
+// into view. Honours prefers-reduced-motion.
+// Usage:
+//   <Stat value={50} suffix="+" />
+//   <Stat value={38} suffix="m" />
+//   <Stat value={12} suffix=" wks" />
+// =========================================================================
+const Stat = ({ value, suffix = "", prefix = "", duration = 1400, style = {} }) => {
+  const ref = useRef(null);
+  const reduced = usePrefersReducedMotion();
+  const [n, setN] = useState(reduced ? value : 0);
+  useEffect(() => {
+    if (reduced) { setN(value); return; }
+    if (!ref.current) return;
+    let raf = 0;
+    let start = 0;
+    let done = false;
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting && !done) {
+          done = true;
+          const step = (ts) => {
+            if (!start) start = ts;
+            const t = Math.min(1, (ts - start) / duration);
+            const eased = 1 - Math.pow(1 - t, 3);
+            setN(Math.round(eased * value));
+            if (t < 1) raf = requestAnimationFrame(step);
+          };
+          raf = requestAnimationFrame(step);
+          obs.disconnect();
+        }
+      });
+    }, { threshold: 0.4 });
+    obs.observe(ref.current);
+    return () => { obs.disconnect(); cancelAnimationFrame(raf); };
+  }, [value, duration, reduced]);
+  return (
+    <span ref={ref} style={style} aria-label={`${prefix}${value}${suffix}`}>
+      <span aria-hidden="true">{prefix}{n}{suffix}</span>
+    </span>
+  );
+};
+
+// =========================================================================
+// MARQUEE — infinite-loop horizontal scroll. Pauses on hover.
+// Honours prefers-reduced-motion (renders a static centred row instead).
+// =========================================================================
+const Marquee = ({ items, speed = 38, gap = 56, dark = false }) => {
+  const reduced = usePrefersReducedMotion();
+  if (reduced) {
+    return (
+      <div style={{
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        gap: gap,
+        padding: "0 24px",
+      }}>
+        {items.map((it, i) => (
+          <span key={i} className={dark ? "marquee-pill marquee-pill--dark" : "marquee-pill"}>{it}</span>
+        ))}
+      </div>
+    );
+  }
+  return (
+    <div className="marquee" aria-hidden="true">
+      <div className="marquee-track" style={{ animationDuration: `${speed}s`, gap: `${gap}px` }}>
+        {[0, 1].map((dup) => (
+          <div key={dup} className="marquee-row" style={{ gap: `${gap}px` }}>
+            {items.map((it, i) => (
+              <span key={i} className={dark ? "marquee-pill marquee-pill--dark" : "marquee-pill"}>
+                {it}
+              </span>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// =========================================================================
+// SKIP LINK — visible on focus, jumps to <main id="main">
+// =========================================================================
+const SkipLink = () => (
+  <a
+    href="#main"
+    style={{
+      position: "absolute",
+      left: 16,
+      top: 16,
+      transform: "translateY(-200%)",
+      transition: "transform 150ms ease",
+      background: TOKENS.navy,
+      color: "#fff",
+      padding: "10px 16px",
+      fontFamily: "Inter, sans-serif",
+      fontSize: 13,
+      fontWeight: 500,
+      borderRadius: 4,
+      zIndex: 200,
+      textDecoration: "none",
+    }}
+    onFocus={(e) => { e.currentTarget.style.transform = "translateY(0)"; }}
+    onBlur={(e) => { e.currentTarget.style.transform = "translateY(-200%)"; }}
+  >
+    Skip to main content
+  </a>
+);
+
+// =========================================================================
 // LOGO
-// Direct on transparent background (no white pill). If the source PNG has a
-// white halo baked in, mix-blend-mode: multiply blends it onto the page
-// surface as an interim fix.
-// TODO: replace assets/liscarroll-logo.png with a transparent-background SVG
-//       and remove the mix-blend-mode workaround below.
 // =========================================================================
 const Logo = ({ height = 36, dark = false }) => (
-  <a href="index.html" style={{ display: "inline-flex", alignItems: "center", textDecoration: "none" }}>
+  <a href="index.html" style={{ display: "inline-flex", alignItems: "center", textDecoration: "none" }} aria-label="Liscarroll Engineering — home">
     <img
       src="assets/liscarroll-logo.png"
       alt="Liscarroll Engineering"
@@ -250,18 +342,67 @@ const NAV_LINKS = [
 ];
 
 // =========================================================================
-// NAV
+// NAV — sticky header with focus-trapped mobile menu
 // =========================================================================
 const Nav = ({ current = "" }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const menuRef = useRef(null);
+  const openerRef = useRef(null);
+  const closerRef = useRef(null);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => { document.body.style.overflow = prev; };
+    }
+  }, [mobileOpen]);
+
+  // Focus trap + Esc to close
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const node = menuRef.current;
+    if (!node) return;
+    const focusables = () =>
+      Array.from(node.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])'))
+        .filter((el) => !el.hasAttribute("disabled"));
+    const first = focusables()[0];
+    if (first) first.focus();
+    const onKey = (e) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setMobileOpen(false);
+        if (openerRef.current) openerRef.current.focus();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const f = focusables();
+      if (f.length === 0) return;
+      const firstEl = f[0];
+      const lastEl = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === firstEl) {
+        e.preventDefault();
+        lastEl.focus();
+      } else if (!e.shiftKey && document.activeElement === lastEl) {
+        e.preventDefault();
+        firstEl.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [mobileOpen]);
+
   return (
     <>
+      <SkipLink />
       <header
         style={{
           position: "sticky",
@@ -273,10 +414,9 @@ const Nav = ({ current = "" }) => {
           WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
           borderBottom: scrolled ? `0.5px solid ${TOKENS.hairline}` : "0.5px solid transparent",
           transition: "background 200ms ease, backdrop-filter 200ms ease, border-color 200ms ease",
-          pointerEvents: "none",
         }}
       >
-        <div style={{ maxWidth: 1440, margin: "0 auto", pointerEvents: "auto" }}>
+        <div style={{ maxWidth: 1440, margin: "0 auto" }}>
           <div
             style={{
               display: "flex",
@@ -288,12 +428,13 @@ const Nav = ({ current = "" }) => {
           >
             <Logo height={36} />
 
-            <nav className="desktop-nav" style={{ display: "flex", gap: 2, alignItems: "center" }}>
+            <nav className="desktop-nav" style={{ display: "flex", gap: 2, alignItems: "center" }} aria-label="Primary">
               {NAV_LINKS.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
                   className={`nav-link${current === item.href ? " is-current" : ""}`}
+                  aria-current={current === item.href ? "page" : undefined}
                 >
                   {item.label}
                 </a>
@@ -304,6 +445,7 @@ const Nav = ({ current = "" }) => {
             </nav>
 
             <button
+              ref={openerRef}
               className="mobile-menu-btn"
               onClick={() => setMobileOpen(true)}
               style={{
@@ -314,6 +456,8 @@ const Nav = ({ current = "" }) => {
                 padding: 8,
               }}
               aria-label="Open menu"
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-menu"
             >
               <div style={{ width: 22, height: 1, background: TOKENS.navy, marginBottom: 6 }} />
               <div style={{ width: 22, height: 1, background: TOKENS.navy, marginBottom: 6 }} />
@@ -325,6 +469,11 @@ const Nav = ({ current = "" }) => {
 
       {/* Mobile menu */}
       <div
+        ref={menuRef}
+        id="mobile-menu"
+        role="dialog"
+        aria-modal={mobileOpen ? "true" : undefined}
+        aria-label="Site navigation"
         style={{
           position: "fixed",
           inset: 0,
@@ -341,7 +490,11 @@ const Nav = ({ current = "" }) => {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 48 }}>
           <Logo height={32} />
           <button
-            onClick={() => setMobileOpen(false)}
+            ref={closerRef}
+            onClick={() => {
+              setMobileOpen(false);
+              if (openerRef.current) openerRef.current.focus();
+            }}
             style={{
               background: "transparent",
               border: "none",
@@ -355,11 +508,12 @@ const Nav = ({ current = "" }) => {
             ×
           </button>
         </div>
-        <nav style={{ display: "flex", flexDirection: "column" }}>
+        <nav style={{ display: "flex", flexDirection: "column" }} aria-label="Mobile primary">
           {NAV_LINKS.map((item, i) => (
             <a
               key={item.label}
               href={item.href}
+              aria-current={current === item.href ? "page" : undefined}
               style={{
                 fontFamily: "'Bebas Neue', sans-serif",
                 fontSize: 36,
@@ -386,6 +540,100 @@ const Nav = ({ current = "" }) => {
         </a>
       </div>
     </>
+  );
+};
+
+// =========================================================================
+// CONSENT — first-party cookie storing the user's banner choice.
+// Used to gate Google Maps embeds. Stored in localStorage to avoid
+// setting any cookie until the user opts in.
+// =========================================================================
+const CONSENT_KEY = "le_consent_v1";
+const getConsent = () => {
+  try { return localStorage.getItem(CONSENT_KEY); } catch { return null; }
+};
+const setConsent = (v) => {
+  try { localStorage.setItem(CONSENT_KEY, v); } catch {}
+  document.dispatchEvent(new CustomEvent("le:consent", { detail: v }));
+};
+
+// =========================================================================
+// COOKIE BANNER — shown until the user accepts or declines.
+// =========================================================================
+const CookieBanner = () => {
+  const [choice, setChoice] = useState(undefined);
+  useEffect(() => {
+    setChoice(getConsent());
+  }, []);
+  if (choice === undefined) return null;
+  if (choice === "accepted" || choice === "declined") return null;
+
+  const decide = (v) => { setConsent(v); setChoice(v); };
+
+  return (
+    <div
+      role="region"
+      aria-label="Cookie consent"
+      style={{
+        position: "fixed",
+        left: 16,
+        right: 16,
+        bottom: 16,
+        zIndex: 150,
+        maxWidth: 720,
+        margin: "0 auto",
+        background: TOKENS.navy,
+        color: "#E8ECF1",
+        borderRadius: 10,
+        padding: "20px 22px",
+        boxShadow: "0 30px 80px -20px rgba(10,22,40,0.45)",
+        display: "flex",
+        flexWrap: "wrap",
+        gap: 16,
+        alignItems: "center",
+        justifyContent: "space-between",
+        fontFamily: "Inter, sans-serif",
+      }}
+    >
+      <p style={{ margin: 0, fontSize: 14, lineHeight: 1.55, color: "#9DBED5", flex: "1 1 320px", minWidth: 240 }}>
+        We use a single first-party cookie to remember this choice. Embedded maps load only after you accept.{" "}
+        <a href="privacy.html" style={{ color: "#fff", textDecoration: "underline" }}>Privacy policy</a>.
+      </p>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+        <button
+          onClick={() => decide("declined")}
+          style={{
+            background: "transparent",
+            color: "#fff",
+            border: "1px solid rgba(255,255,255,0.35)",
+            padding: "10px 18px",
+            borderRadius: 9999,
+            fontSize: 13,
+            fontWeight: 500,
+            cursor: "pointer",
+            letterSpacing: "0.02em",
+          }}
+        >
+          Decline
+        </button>
+        <button
+          onClick={() => decide("accepted")}
+          style={{
+            background: TOKENS.steel,
+            color: "#fff",
+            border: "none",
+            padding: "10px 20px",
+            borderRadius: 9999,
+            fontSize: 13,
+            fontWeight: 600,
+            cursor: "pointer",
+            letterSpacing: "0.02em",
+          }}
+        >
+          Accept
+        </button>
+      </div>
+    </div>
   );
 };
 
@@ -507,19 +755,34 @@ const Footer = () => (
         <span style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#9DBED5", letterSpacing: "0.02em" }}>
           © 2026 Liscarroll Engineering Limited. All rights reserved.
         </span>
-        <span
-          style={{
-            fontFamily: "Inter, sans-serif",
-            fontSize: 12,
-            color: "#9DBED5",
-            letterSpacing: "0.10em",
-            textTransform: "uppercase",
-          }}
-        >
-          Simply better by design
-        </span>
+        <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
+          <a
+            href="privacy.html"
+            style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#9DBED5", textDecoration: "none", letterSpacing: "0.02em" }}
+          >
+            Privacy
+          </a>
+          <a
+            href="terms.html"
+            style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#9DBED5", textDecoration: "none", letterSpacing: "0.02em" }}
+          >
+            Terms
+          </a>
+          <span
+            style={{
+              fontFamily: "Inter, sans-serif",
+              fontSize: 12,
+              color: "#9DBED5",
+              letterSpacing: "0.10em",
+              textTransform: "uppercase",
+            }}
+          >
+            Simply better by design
+          </span>
+        </div>
       </div>
     </div>
+    <CookieBanner />
   </footer>
 );
 
@@ -598,6 +861,12 @@ Object.assign(window, {
   Logo,
   Nav,
   Footer,
+  CookieBanner,
+  Stat,
+  Marquee,
+  getConsent,
+  setConsent,
+  usePrefersReducedMotion,
   INDUSTRIES,
   useState,
   useEffect,
