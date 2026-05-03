@@ -631,60 +631,130 @@ const ContactBand = () => /*#__PURE__*/React.createElement("section", {
   style: ctaSecondary
 }, "+353 (0)22 48200")))));
 
-// LOCATION MAP
-const LocationMap = () => /*#__PURE__*/React.createElement("section", {
-  style: {
-    background: TOKENS.white,
-    borderBottom: `1px solid ${TOKENS.hairline}`
-  }
-}, /*#__PURE__*/React.createElement("div", {
-  style: {
-    maxWidth: 1440,
-    margin: "0 auto",
-    padding: "0 32px 80px"
-  }
-}, /*#__PURE__*/React.createElement(FadeUp, null, /*#__PURE__*/React.createElement("div", {
-  style: {
-    display: "grid",
-    gridTemplateColumns: "1fr",
-    gap: 24,
-    marginBottom: 32
-  }
-}, /*#__PURE__*/React.createElement(Kicker, null, "Find us"), /*#__PURE__*/React.createElement("h2", {
-  style: {
-    fontFamily: "'Bebas Neue', sans-serif",
-    fontSize: "clamp(36px, 4.5vw, 64px)",
-    lineHeight: 0.95,
-    letterSpacing: "0.02em",
-    color: TOKENS.navy,
-    margin: 0,
-    textTransform: "uppercase"
-  }
-}, "Rockspring, Liscarroll, Co. Cork."))), /*#__PURE__*/React.createElement(FadeUp, {
-  delay: 120
-}, /*#__PURE__*/React.createElement("div", {
-  style: {
-    position: "relative",
-    width: "100%",
-    paddingTop: "42%",
-    border: `0.5px solid ${TOKENS.hairline}`,
-    borderRadius: 12,
-    overflow: "hidden"
-  }
-}, /*#__PURE__*/React.createElement("iframe", {
-  title: "Liscarroll Engineering \u2014 Rockspring, Liscarroll, Co. Cork",
-  src: "https://www.google.com/maps?q=Liscarroll+Engineering,+Rockspring,+Liscarroll,+Co.+Cork,+Ireland&output=embed",
-  loading: "lazy",
-  referrerPolicy: "no-referrer-when-downgrade",
-  style: {
-    position: "absolute",
-    inset: 0,
-    width: "100%",
-    height: "100%",
-    border: 0
-  }
-})))));
+// LOCATION MAP — gated by cookie consent. Until the visitor accepts cookies
+// (or explicitly clicks "Show map"), we render a static placeholder and do
+// not contact Google.
+const LocationMap = () => {
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    if (getConsent() === "accepted") setLoaded(true);
+    const onConsent = e => {
+      if (e.detail === "accepted") setLoaded(true);
+    };
+    document.addEventListener("le:consent", onConsent);
+    return () => document.removeEventListener("le:consent", onConsent);
+  }, []);
+  return /*#__PURE__*/React.createElement("section", {
+    style: {
+      background: TOKENS.white,
+      borderBottom: `1px solid ${TOKENS.hairline}`
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      maxWidth: 1440,
+      margin: "0 auto",
+      padding: "0 32px 80px"
+    }
+  }, /*#__PURE__*/React.createElement(FadeUp, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "1fr",
+      gap: 24,
+      marginBottom: 32
+    }
+  }, /*#__PURE__*/React.createElement(Kicker, null, "Find us"), /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontFamily: "'Bebas Neue', sans-serif",
+      fontSize: "clamp(36px, 4.5vw, 64px)",
+      lineHeight: 0.95,
+      letterSpacing: "0.02em",
+      color: TOKENS.navy,
+      margin: 0,
+      textTransform: "uppercase"
+    }
+  }, "Rockspring, Liscarroll, Co. Cork."))), /*#__PURE__*/React.createElement(FadeUp, {
+    delay: 120
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "relative",
+      width: "100%",
+      paddingTop: "42%",
+      border: `0.5px solid ${TOKENS.hairline}`,
+      borderRadius: 12,
+      overflow: "hidden",
+      background: TOKENS.paper
+    }
+  }, loaded ? /*#__PURE__*/React.createElement("iframe", {
+    title: "Liscarroll Engineering \u2014 Rockspring, Liscarroll, Co. Cork",
+    src: "https://www.google.com/maps?q=Liscarroll+Engineering,+Rockspring,+Liscarroll,+Co.+Cork,+Ireland&output=embed",
+    loading: "lazy",
+    referrerPolicy: "no-referrer-when-downgrade",
+    style: {
+      position: "absolute",
+      inset: 0,
+      width: "100%",
+      height: "100%",
+      border: 0
+    }
+  }) : /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "absolute",
+      inset: 0,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      textAlign: "center",
+      padding: 32,
+      background: "repeating-linear-gradient(135deg, #F4F5F7 0 14px, #EAECEF 14px 28px)"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+      fontSize: 11,
+      letterSpacing: "0.20em",
+      textTransform: "uppercase",
+      color: "#6B7785",
+      marginBottom: 16
+    }
+  }, "Map \xB7 Google Maps embed"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: "Inter, sans-serif",
+      fontSize: 14,
+      color: TOKENS.body,
+      maxWidth: 460,
+      lineHeight: 1.55,
+      margin: "0 0 20px 0"
+    }
+  }, "This map is provided by Google and may set cookies on your device. Click below to load it."), /*#__PURE__*/React.createElement("button", {
+    onClick: () => {
+      setConsent("accepted");
+      setLoaded(true);
+    },
+    style: {
+      ...ctaPrimary,
+      border: "none",
+      cursor: "pointer",
+      fontSize: 13
+    }
+  }, "Show map"), /*#__PURE__*/React.createElement("a", {
+    href: "https://www.google.com/maps?q=Liscarroll+Engineering,+Rockspring,+Liscarroll,+Co.+Cork,+Ireland",
+    target: "_blank",
+    rel: "noopener noreferrer",
+    style: {
+      marginTop: 14,
+      fontFamily: "Inter, sans-serif",
+      fontSize: 12,
+      color: TOKENS.body,
+      letterSpacing: "0.10em",
+      textTransform: "uppercase",
+      textDecoration: "none"
+    }
+  }, "Or open in Google Maps \u2192"))))));
+};
 const App = () => /*#__PURE__*/React.createElement(PageFade, null, /*#__PURE__*/React.createElement(Nav, {
   current: ""
-}), /*#__PURE__*/React.createElement("main", null, /*#__PURE__*/React.createElement(Hero, null), /*#__PURE__*/React.createElement(TrustStrip, null), /*#__PURE__*/React.createElement(IndustriesPreview, null), /*#__PURE__*/React.createElement(CaseStudy, null), /*#__PURE__*/React.createElement(ContactBand, null), /*#__PURE__*/React.createElement(LocationMap, null)), /*#__PURE__*/React.createElement(Footer, null));
+}), /*#__PURE__*/React.createElement("main", {
+  id: "main"
+}, /*#__PURE__*/React.createElement(Hero, null), /*#__PURE__*/React.createElement(TrustStrip, null), /*#__PURE__*/React.createElement(IndustriesPreview, null), /*#__PURE__*/React.createElement(CaseStudy, null), /*#__PURE__*/React.createElement(ContactBand, null), /*#__PURE__*/React.createElement(LocationMap, null)), /*#__PURE__*/React.createElement(Footer, null));
 ReactDOM.createRoot(document.getElementById("root")).render(/*#__PURE__*/React.createElement(App, null));

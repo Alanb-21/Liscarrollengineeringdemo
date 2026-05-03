@@ -113,7 +113,7 @@ const Hero = () => /*#__PURE__*/React.createElement("section", {
     flexWrap: "wrap"
   }
 }, /*#__PURE__*/React.createElement("a", {
-  href: "contact.html",
+  href: `contact.html?industry=${ind.slug}`,
   style: ctaPrimary
 }, "Discuss your project"), /*#__PURE__*/React.createElement("a", {
   href: "case-studies.html",
@@ -311,5 +311,7 @@ const NextPrev = () => /*#__PURE__*/React.createElement("section", {
 }, next.name)))));
 const App = () => /*#__PURE__*/React.createElement(PageFade, null, /*#__PURE__*/React.createElement(Nav, {
   current: "industries.html"
-}), /*#__PURE__*/React.createElement("main", null, /*#__PURE__*/React.createElement(Hero, null), /*#__PURE__*/React.createElement(Products, null), /*#__PURE__*/React.createElement(NextPrev, null)), /*#__PURE__*/React.createElement(Footer, null));
+}), /*#__PURE__*/React.createElement("main", {
+  id: "main"
+}, /*#__PURE__*/React.createElement(Hero, null), /*#__PURE__*/React.createElement(Products, null), /*#__PURE__*/React.createElement(NextPrev, null)), /*#__PURE__*/React.createElement(Footer, null));
 ReactDOM.createRoot(document.getElementById("root")).render(/*#__PURE__*/React.createElement(App, null));

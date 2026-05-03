@@ -44,7 +44,7 @@ const Hero = () => (
           </FadeUp>
           <FadeUp delay={320}>
             <div style={{ display: "flex", gap: 14, marginTop: 36, flexWrap: "wrap" }}>
-              <a href="contact.html" style={ctaPrimary}>Discuss your project</a>
+              <a href={`contact.html?industry=${ind.slug}`} style={ctaPrimary}>Discuss your project</a>
               <a href="case-studies.html" style={ctaSecondary}>See related work</a>
             </div>
           </FadeUp>
@@ -149,7 +149,7 @@ const NextPrev = () => (
 const App = () => (
   <PageFade>
     <Nav current="industries.html" />
-    <main>
+    <main id="main">
       <Hero />
       <Products />
       <NextPrev />

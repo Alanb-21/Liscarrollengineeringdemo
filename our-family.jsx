@@ -102,7 +102,7 @@ const Standards = () => (
 const App = () => (
   <PageFade>
     <Nav current="our-family.html" />
-    <main>
+    <main id="main">
       <Hero />
       <TeamGrid />
       <Standards />

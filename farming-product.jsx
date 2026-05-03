@@ -182,8 +182,8 @@ const Hero = () => (
           </FadeUp>
           <FadeUp delay={340}>
             <div style={{ display: "flex", gap: 14, marginTop: 40, flexWrap: "wrap" }}>
-              <a href="contact.html" style={ctaPrimary}>Request a quote</a>
-              <a href="contact.html" style={ctaSecondary}>Request spec sheet</a>
+              <a href={`contact.html?industry=farming&product=${product.slug}`} style={ctaPrimary}>Request a quote</a>
+              <a href={`contact.html?industry=farming&product=${product.slug}&kind=specsheet`} style={ctaSecondary}>Request spec sheet</a>
             </div>
           </FadeUp>
         </div>
@@ -208,7 +208,7 @@ const Drawings = () => (
           </FadeUp>
         </div>
         <FadeUp delay={150}>
-          <a href="contact.html" style={ctaSecondary}>Request full drawing pack →</a>
+          <a href={`contact.html?industry=farming&product=${product.slug}&kind=drawings`} style={ctaSecondary}>Request full drawing pack →</a>
         </FadeUp>
       </div>
       <div className="product-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
@@ -309,7 +309,7 @@ const NextPrev = () => (
 const App = () => (
   <PageFade>
     <Nav current="industries.html" />
-    <main>
+    <main id="main">
       <Hero />
       <Drawings />
       <Specifications />

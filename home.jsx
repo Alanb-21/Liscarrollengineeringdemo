@@ -426,37 +426,85 @@ const ContactBand = () => (
   </section>
 );
 
-// LOCATION MAP
-const LocationMap = () => (
-  <section style={{ background: TOKENS.white, borderBottom: `1px solid ${TOKENS.hairline}` }}>
-    <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 32px 80px" }}>
-      <FadeUp>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 24, marginBottom: 32 }}>
-          <Kicker>Find us</Kicker>
-          <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(36px, 4.5vw, 64px)", lineHeight: 0.95, letterSpacing: "0.02em", color: TOKENS.navy, margin: 0, textTransform: "uppercase" }}>
-            Rockspring, Liscarroll, Co. Cork.
-          </h2>
-        </div>
-      </FadeUp>
-      <FadeUp delay={120}>
-        <div style={{ position: "relative", width: "100%", paddingTop: "42%", border: `0.5px solid ${TOKENS.hairline}`, borderRadius: 12, overflow: "hidden" }}>
-          <iframe
-            title="Liscarroll Engineering — Rockspring, Liscarroll, Co. Cork"
-            src="https://www.google.com/maps?q=Liscarroll+Engineering,+Rockspring,+Liscarroll,+Co.+Cork,+Ireland&output=embed"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
-          />
-        </div>
-      </FadeUp>
-    </div>
-  </section>
-);
+// LOCATION MAP — gated by cookie consent. Until the visitor accepts cookies
+// (or explicitly clicks "Show map"), we render a static placeholder and do
+// not contact Google.
+const LocationMap = () => {
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    if (getConsent() === "accepted") setLoaded(true);
+    const onConsent = (e) => { if (e.detail === "accepted") setLoaded(true); };
+    document.addEventListener("le:consent", onConsent);
+    return () => document.removeEventListener("le:consent", onConsent);
+  }, []);
+  return (
+    <section style={{ background: TOKENS.white, borderBottom: `1px solid ${TOKENS.hairline}` }}>
+      <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 32px 80px" }}>
+        <FadeUp>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 24, marginBottom: 32 }}>
+            <Kicker>Find us</Kicker>
+            <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(36px, 4.5vw, 64px)", lineHeight: 0.95, letterSpacing: "0.02em", color: TOKENS.navy, margin: 0, textTransform: "uppercase" }}>
+              Rockspring, Liscarroll, Co. Cork.
+            </h2>
+          </div>
+        </FadeUp>
+        <FadeUp delay={120}>
+          <div style={{ position: "relative", width: "100%", paddingTop: "42%", border: `0.5px solid ${TOKENS.hairline}`, borderRadius: 12, overflow: "hidden", background: TOKENS.paper }}>
+            {loaded ? (
+              <iframe
+                title="Liscarroll Engineering — Rockspring, Liscarroll, Co. Cork"
+                src="https://www.google.com/maps?q=Liscarroll+Engineering,+Rockspring,+Liscarroll,+Co.+Cork,+Ireland&output=embed"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
+              />
+            ) : (
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textAlign: "center",
+                  padding: 32,
+                  background: "repeating-linear-gradient(135deg, #F4F5F7 0 14px, #EAECEF 14px 28px)",
+                }}
+              >
+                <span style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 11, letterSpacing: "0.20em", textTransform: "uppercase", color: "#6B7785", marginBottom: 16 }}>
+                  Map · Google Maps embed
+                </span>
+                <p style={{ fontFamily: "Inter, sans-serif", fontSize: 14, color: TOKENS.body, maxWidth: 460, lineHeight: 1.55, margin: "0 0 20px 0" }}>
+                  This map is provided by Google and may set cookies on your device. Click below to load it.
+                </p>
+                <button
+                  onClick={() => { setConsent("accepted"); setLoaded(true); }}
+                  style={{ ...ctaPrimary, border: "none", cursor: "pointer", fontSize: 13 }}
+                >
+                  Show map
+                </button>
+                <a
+                  href="https://www.google.com/maps?q=Liscarroll+Engineering,+Rockspring,+Liscarroll,+Co.+Cork,+Ireland"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ marginTop: 14, fontFamily: "Inter, sans-serif", fontSize: 12, color: TOKENS.body, letterSpacing: "0.10em", textTransform: "uppercase", textDecoration: "none" }}
+                >
+                  Or open in Google Maps →
+                </a>
+              </div>
+            )}
+          </div>
+        </FadeUp>
+      </div>
+    </section>
+  );
+};
 
 const App = () => (
   <PageFade>
     <Nav current="" />
-    <main>
+    <main id="main">
       <Hero />
       <TrustStrip />
       <IndustriesPreview />

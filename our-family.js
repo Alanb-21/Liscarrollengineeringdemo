@@ -244,5 +244,7 @@ const Standards = () => /*#__PURE__*/React.createElement("section", {
 }, s)))))));
 const App = () => /*#__PURE__*/React.createElement(PageFade, null, /*#__PURE__*/React.createElement(Nav, {
   current: "our-family.html"
-}), /*#__PURE__*/React.createElement("main", null, /*#__PURE__*/React.createElement(Hero, null), /*#__PURE__*/React.createElement(TeamGrid, null), /*#__PURE__*/React.createElement(Standards, null)), /*#__PURE__*/React.createElement(Footer, null));
+}), /*#__PURE__*/React.createElement("main", {
+  id: "main"
+}, /*#__PURE__*/React.createElement(Hero, null), /*#__PURE__*/React.createElement(TeamGrid, null), /*#__PURE__*/React.createElement(Standards, null)), /*#__PURE__*/React.createElement(Footer, null));
 ReactDOM.createRoot(document.getElementById("root")).render(/*#__PURE__*/React.createElement(App, null));

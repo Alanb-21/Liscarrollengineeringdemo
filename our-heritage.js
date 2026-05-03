@@ -202,5 +202,7 @@ const Quote = () => /*#__PURE__*/React.createElement("section", {
 }, "Liscarroll Engineering \xB7 Est. 1973"))));
 const App = () => /*#__PURE__*/React.createElement(PageFade, null, /*#__PURE__*/React.createElement(Nav, {
   current: "our-heritage.html"
-}), /*#__PURE__*/React.createElement("main", null, /*#__PURE__*/React.createElement(Hero, null), /*#__PURE__*/React.createElement(HeritageImages, null), /*#__PURE__*/React.createElement(Timeline, null), /*#__PURE__*/React.createElement(Quote, null)), /*#__PURE__*/React.createElement(Footer, null));
+}), /*#__PURE__*/React.createElement("main", {
+  id: "main"
+}, /*#__PURE__*/React.createElement(Hero, null), /*#__PURE__*/React.createElement(HeritageImages, null), /*#__PURE__*/React.createElement(Timeline, null), /*#__PURE__*/React.createElement(Quote, null)), /*#__PURE__*/React.createElement(Footer, null));
 ReactDOM.createRoot(document.getElementById("root")).render(/*#__PURE__*/React.createElement(App, null));

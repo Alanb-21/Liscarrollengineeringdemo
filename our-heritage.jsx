@@ -109,7 +109,7 @@ const Quote = () => (
 const App = () => (
   <PageFade>
     <Nav current="our-heritage.html" />
-    <main>
+    <main id="main">
       <Hero />
       <HeritageImages />
       <Timeline />

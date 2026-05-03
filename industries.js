@@ -162,7 +162,9 @@ const IndustriesHub = () => /*#__PURE__*/React.createElement("section", {
 }, "Explore ", ind.name, " \u2192"))))))));
 const App = () => /*#__PURE__*/React.createElement(PageFade, null, /*#__PURE__*/React.createElement(Nav, {
   current: "industries.html"
-}), /*#__PURE__*/React.createElement("main", null, /*#__PURE__*/React.createElement(PageHero, {
+}), /*#__PURE__*/React.createElement("main", {
+  id: "main"
+}, /*#__PURE__*/React.createElement(PageHero, {
   kicker: "What we build",
   title: /*#__PURE__*/React.createElement(React.Fragment, null, "Five industries.", /*#__PURE__*/React.createElement("br", null), "One standard."),
   sub: "Whether you are cooling milk in Kerry or fabricating a pharma vessel for Dublin, every project receives the same fifty-year-old standard of precision. Choose your industry below."

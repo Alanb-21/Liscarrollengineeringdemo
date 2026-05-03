@@ -190,10 +190,10 @@ const Hero = () => /*#__PURE__*/React.createElement("section", {
     flexWrap: "wrap"
   }
 }, /*#__PURE__*/React.createElement("a", {
-  href: "contact.html",
+  href: `contact.html?industry=farming&product=${product.slug}`,
   style: ctaPrimary
 }, "Request a quote"), /*#__PURE__*/React.createElement("a", {
-  href: "contact.html",
+  href: `contact.html?industry=farming&product=${product.slug}&kind=specsheet`,
   style: ctaSecondary
 }, "Request spec sheet")))), /*#__PURE__*/React.createElement(FadeUp, {
   delay: 200
@@ -242,7 +242,7 @@ const Drawings = () => /*#__PURE__*/React.createElement("section", {
 }, "Engineering documentation."))), /*#__PURE__*/React.createElement(FadeUp, {
   delay: 150
 }, /*#__PURE__*/React.createElement("a", {
-  href: "contact.html",
+  href: `contact.html?industry=farming&product=${product.slug}&kind=drawings`,
   style: ctaSecondary
 }, "Request full drawing pack \u2192"))), /*#__PURE__*/React.createElement("div", {
   className: "product-grid",
@@ -496,5 +496,7 @@ const NextPrev = () => /*#__PURE__*/React.createElement("section", {
 }, "\u2190 Back to all farming products"))));
 const App = () => /*#__PURE__*/React.createElement(PageFade, null, /*#__PURE__*/React.createElement(Nav, {
   current: "industries.html"
-}), /*#__PURE__*/React.createElement("main", null, /*#__PURE__*/React.createElement(Hero, null), /*#__PURE__*/React.createElement(Drawings, null), /*#__PURE__*/React.createElement(Specifications, null), /*#__PURE__*/React.createElement(Installed, null), /*#__PURE__*/React.createElement(NextPrev, null)), /*#__PURE__*/React.createElement(Footer, null));
+}), /*#__PURE__*/React.createElement("main", {
+  id: "main"
+}, /*#__PURE__*/React.createElement(Hero, null), /*#__PURE__*/React.createElement(Drawings, null), /*#__PURE__*/React.createElement(Specifications, null), /*#__PURE__*/React.createElement(Installed, null), /*#__PURE__*/React.createElement(NextPrev, null)), /*#__PURE__*/React.createElement(Footer, null));
 ReactDOM.createRoot(document.getElementById("root")).render(/*#__PURE__*/React.createElement(App, null));

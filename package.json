@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Liscarroll Engineering — multi-page stainless steel manufacturer site.",
   "scripts": {
-    "build": "babel shared.jsx home.jsx industries.jsx industry-detail.jsx our-family.jsx our-heritage.jsx case-studies.jsx contact.jsx farming-product.jsx --out-dir . --out-file-extension .js",
-    "watch": "babel shared.jsx home.jsx industries.jsx industry-detail.jsx our-family.jsx our-heritage.jsx case-studies.jsx contact.jsx farming-product.jsx --out-dir . --out-file-extension .js --watch"
+    "build": "babel shared.jsx home.jsx industries.jsx industry-detail.jsx our-family.jsx our-heritage.jsx case-studies.jsx contact.jsx farming-product.jsx legal.jsx --out-dir . --out-file-extension .js",
+    "watch": "babel shared.jsx home.jsx industries.jsx industry-detail.jsx our-family.jsx our-heritage.jsx case-studies.jsx contact.jsx farming-product.jsx legal.jsx --out-dir . --out-file-extension .js --watch"
   },
   "repository": {
     "type": "git",

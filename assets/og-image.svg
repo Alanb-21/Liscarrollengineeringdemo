@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A1628"/>
+      <stop offset="100%" stop-color="#15243B"/>
+    </linearGradient>
+    <pattern id="stripe" width="56" height="56" patternUnits="userSpaceOnUse" patternTransform="rotate(135)">
+      <rect width="56" height="56" fill="#0A1628"/>
+      <rect width="28" height="56" fill="#15243B"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <rect x="780" y="0" width="420" height="630" fill="url(#stripe)" opacity="0.6"/>
+  <rect x="80" y="80" width="44" height="2" fill="#2E86AB"/>
+  <text x="80" y="118" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" letter-spacing="3" fill="#9DBED5">EST. 1973 · LISCARROLL, CO. CORK</text>
+  <text x="80" y="280" font-family="Bebas Neue, Inter, Arial, sans-serif" font-size="120" font-weight="700" letter-spacing="2" fill="#FFFFFF">STAINLESS STEEL.</text>
+  <text x="80" y="400" font-family="Bebas Neue, Inter, Arial, sans-serif" font-size="120" font-weight="700" letter-spacing="2" fill="#FFFFFF">BUILT TO OUTLAST.</text>
+  <text x="80" y="490" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="400" fill="#9DBED5">Fifty years of precision engineering for farming, food, pharma,</text>
+  <text x="80" y="522" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="400" fill="#9DBED5">leisure and bespoke. Built in Cork. Shipped worldwide.</text>
+  <rect x="80" y="556" width="200" height="2" fill="#2E86AB"/>
+  <text x="80" y="588" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#FFFFFF">LISCARROLLENGINEERING.IE</text>
+</svg>

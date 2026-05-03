@@ -78,7 +78,7 @@ const Grid = () => (
 const App = () => (
   <PageFade>
     <Nav current="case-studies.html" />
-    <main>
+    <main id="main">
       <Hero />
       <Grid />
     </main>
