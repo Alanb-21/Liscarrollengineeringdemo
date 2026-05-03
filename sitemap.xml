@@ -41,12 +41,12 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://liscarrollengineering.ie/product-farming-milk-silos.html</loc>
+    <loc>https://liscarrollengineering.ie/product-farming-ice-builders.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://liscarrollengineering.ie/product-farming-ice-builders.html</loc>
+    <loc>https://liscarrollengineering.ie/product-farming-milk-silos.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -63,7 +63,132 @@
   <url>
     <loc>https://liscarrollengineering.ie/product-farming-used-equipment.html</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-food-production-lines.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-food-vessels-tanks.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-food-conveyor-systems.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-food-cleanroom-fittings.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-food-mixing-equipment.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-food-bespoke-process-lines.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-pharma-passivated-vessels.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-pharma-sterile-pipework.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-pharma-mixing-tanks.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-pharma-gmp-surfaces.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-pharma-validation-documentation.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-pharma-mirror-polished-finishes.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-leisure-plunge-pools.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-leisure-hot-cold-tubs.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-leisure-spa-surrounds.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-leisure-wellness-suites.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-leisure-architectural-water-features.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-leisure-custom-finishes.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-bespoke-bar-installations.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-bespoke-architectural.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-bespoke-sculpture.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-bespoke-one-offs.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-bespoke-hospitality-fit-out.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/product-bespoke-public-realm.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://liscarrollengineering.ie/case-studies.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://liscarrollengineering.ie/our-family.html</loc>
@@ -74,11 +199,6 @@
     <loc>https://liscarrollengineering.ie/our-heritage.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://liscarrollengineering.ie/case-studies.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://liscarrollengineering.ie/contact.html</loc>
