@@ -101,7 +101,7 @@ const Hero = () => {
   }, /*#__PURE__*/React.createElement("a", {
     href: "contact.html",
     style: ctaPrimary
-  }, "Start a Project"), /*#__PURE__*/React.createElement("a", {
+  }, "Get a quote"), /*#__PURE__*/React.createElement("a", {
     href: "case-studies.html",
     style: ctaSecondary
   }, "View our work"))), /*#__PURE__*/React.createElement("div", {
@@ -197,7 +197,11 @@ const Hero = () => {
       lineHeight: 1,
       letterSpacing: "0.02em"
     }
-  }, "50+"), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement(Stat, {
+    value: 50,
+    suffix: "+",
+    duration: 1600
+  })), /*#__PURE__*/React.createElement("div", {
     className: "hero-badge-label",
     style: {
       fontFamily: "Inter, sans-serif",
@@ -214,9 +218,10 @@ const Hero = () => {
   })));
 };
 
-// TRUST STRIP — wordmark stand-ins, full SVG logos to follow.
-// TODO: Replace text wordmarks with actual SVG client logos once licensed.
-const TRUST_CLIENTS = ["Croke Park", "Glanbia", "Dairygold", "Kerry Group", "Musgrave"];
+// TRUST STRIP — anonymised sectoral pills in a marquee. Replaces the
+// previous wordmark stand-ins until permissioned client logos are in
+// hand. The pills describe sectors and project types we've delivered for.
+const TRUST_SECTORS = ["Ireland's largest dairy co-ops", "Food & beverage producers", "Pharma manufacturers", "Sports venues & hospitality", "Cleanroom & GMP clients", "Wellness & leisure brands", "Architectural fit-out", "National retailers"];
 const TrustStrip = () => /*#__PURE__*/React.createElement("section", {
   className: "trust-strip",
   style: {
@@ -227,7 +232,7 @@ const TrustStrip = () => /*#__PURE__*/React.createElement("section", {
   style: {
     maxWidth: 1440,
     margin: "0 auto",
-    padding: "0 32px"
+    padding: "0 0"
   }
 }, /*#__PURE__*/React.createElement("div", {
   style: {
@@ -238,33 +243,14 @@ const TrustStrip = () => /*#__PURE__*/React.createElement("section", {
     letterSpacing: "0.14em",
     textTransform: "uppercase",
     color: "#6B7785",
-    marginBottom: 24
+    marginBottom: 24,
+    padding: "0 24px"
   }
-}, "Trusted across Ireland's leading industries"), /*#__PURE__*/React.createElement("div", {
-  className: "trust-row"
-}, TRUST_CLIENTS.map(name => /*#__PURE__*/React.createElement("span", {
-  key: name,
-  className: "trust-mark",
-  style: {
-    fontFamily: "Inter, sans-serif",
-    fontSize: 16,
-    fontWeight: 600,
-    letterSpacing: "0.18em",
-    textTransform: "uppercase",
-    color: TOKENS.navy,
-    opacity: 0.4,
-    transition: "opacity 200ms ease",
-    maxHeight: 36,
-    lineHeight: "36px",
-    whiteSpace: "nowrap"
-  },
-  onMouseEnter: e => {
-    e.currentTarget.style.opacity = 1;
-  },
-  onMouseLeave: e => {
-    e.currentTarget.style.opacity = 0.4;
-  }
-}, name)))));
+}, "Fifty years of stainless steel for \u2014"), /*#__PURE__*/React.createElement(Marquee, {
+  items: TRUST_SECTORS,
+  speed: 42,
+  gap: 32
+})));
 
 // INDUSTRIES PREVIEW
 const IndustriesPreview = () => {
@@ -502,8 +488,22 @@ const CaseStudy = () => /*#__PURE__*/React.createElement("section", {
     paddingTop: 32,
     gap: 24
   }
-}, [["38m", "Continuous run length"], ["AISI 304", "Food-grade stainless"], ["12 wks", "Designed to delivered"]].map(([n, l]) => /*#__PURE__*/React.createElement("div", {
-  key: l
+}, [{
+  kind: "stat",
+  value: 38,
+  suffix: "m",
+  label: "Continuous run length"
+}, {
+  kind: "text",
+  value: "AISI 304",
+  label: "Food-grade stainless"
+}, {
+  kind: "stat",
+  value: 12,
+  suffix: " wks",
+  label: "Designed to delivered"
+}].map(s => /*#__PURE__*/React.createElement("div", {
+  key: s.label
 }, /*#__PURE__*/React.createElement("div", {
   style: {
     fontFamily: "'Bebas Neue', sans-serif",
@@ -512,7 +512,11 @@ const CaseStudy = () => /*#__PURE__*/React.createElement("section", {
     letterSpacing: "0.02em",
     lineHeight: 1
   }
-}, n), /*#__PURE__*/React.createElement("div", {
+}, s.kind === "stat" ? /*#__PURE__*/React.createElement(Stat, {
+  value: s.value,
+  suffix: s.suffix,
+  duration: 1400
+}) : s.value), /*#__PURE__*/React.createElement("div", {
   style: {
     fontFamily: "Inter, sans-serif",
     fontSize: 12,
@@ -520,7 +524,7 @@ const CaseStudy = () => /*#__PURE__*/React.createElement("section", {
     marginTop: 8,
     lineHeight: 1.4
   }
-}, l))))), /*#__PURE__*/React.createElement(FadeUp, {
+}, s.label))))), /*#__PURE__*/React.createElement(FadeUp, {
   delay: 400
 }, /*#__PURE__*/React.createElement("a", {
   href: "case-studies.html",
@@ -626,7 +630,7 @@ const ContactBand = () => /*#__PURE__*/React.createElement("section", {
 }, /*#__PURE__*/React.createElement("a", {
   href: "contact.html",
   style: ctaPrimary
-}, "Start a Project"), /*#__PURE__*/React.createElement("a", {
+}, "Talk to engineering"), /*#__PURE__*/React.createElement("a", {
   href: "tel:+35302248200",
   style: ctaSecondary
 }, "+353 (0)22 48200")))));

@@ -245,6 +245,112 @@ const ctaSecondary = {
 };
 
 // =========================================================================
+// COUNT-UP — animates a number from 0 to a target value when it scrolls
+// into view. Honours prefers-reduced-motion.
+// Usage:
+//   <Stat value={50} suffix="+" />
+//   <Stat value={38} suffix="m" />
+//   <Stat value={12} suffix=" wks" />
+// =========================================================================
+const Stat = ({
+  value,
+  suffix = "",
+  prefix = "",
+  duration = 1400,
+  style = {}
+}) => {
+  const ref = useRef(null);
+  const reduced = usePrefersReducedMotion();
+  const [n, setN] = useState(reduced ? value : 0);
+  useEffect(() => {
+    if (reduced) {
+      setN(value);
+      return;
+    }
+    if (!ref.current) return;
+    let raf = 0;
+    let start = 0;
+    let done = false;
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !done) {
+          done = true;
+          const step = ts => {
+            if (!start) start = ts;
+            const t = Math.min(1, (ts - start) / duration);
+            const eased = 1 - Math.pow(1 - t, 3);
+            setN(Math.round(eased * value));
+            if (t < 1) raf = requestAnimationFrame(step);
+          };
+          raf = requestAnimationFrame(step);
+          obs.disconnect();
+        }
+      });
+    }, {
+      threshold: 0.4
+    });
+    obs.observe(ref.current);
+    return () => {
+      obs.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [value, duration, reduced]);
+  return /*#__PURE__*/React.createElement("span", {
+    ref: ref,
+    style: style,
+    "aria-label": `${prefix}${value}${suffix}`
+  }, /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true"
+  }, prefix, n, suffix));
+};
+
+// =========================================================================
+// MARQUEE — infinite-loop horizontal scroll. Pauses on hover.
+// Honours prefers-reduced-motion (renders a static centred row instead).
+// =========================================================================
+const Marquee = ({
+  items,
+  speed = 38,
+  gap = 56,
+  dark = false
+}) => {
+  const reduced = usePrefersReducedMotion();
+  if (reduced) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        gap: gap,
+        padding: "0 24px"
+      }
+    }, items.map((it, i) => /*#__PURE__*/React.createElement("span", {
+      key: i,
+      className: dark ? "marquee-pill marquee-pill--dark" : "marquee-pill"
+    }, it)));
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    className: "marquee",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "marquee-track",
+    style: {
+      animationDuration: `${speed}s`,
+      gap: `${gap}px`
+    }
+  }, [0, 1].map(dup => /*#__PURE__*/React.createElement("div", {
+    key: dup,
+    className: "marquee-row",
+    style: {
+      gap: `${gap}px`
+    }
+  }, items.map((it, i) => /*#__PURE__*/React.createElement("span", {
+    key: i,
+    className: dark ? "marquee-pill marquee-pill--dark" : "marquee-pill"
+  }, it))))));
+};
+
+// =========================================================================
 // SKIP LINK — visible on focus, jumps to <main id="main">
 // =========================================================================
 const SkipLink = () => /*#__PURE__*/React.createElement("a", {
@@ -844,6 +950,8 @@ Object.assign(window, {
   Nav,
   Footer,
   CookieBanner,
+  Stat,
+  Marquee,
   getConsent,
   setConsent,
   usePrefersReducedMotion,

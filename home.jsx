@@ -85,7 +85,7 @@ const Hero = () => {
             </p>
 
             <div className="hero-anim hero-anim-cta" style={{ display: "flex", gap: 14, marginTop: 40, flexWrap: "wrap" }}>
-              <a href="contact.html" style={ctaPrimary}>Start a Project</a>
+              <a href="contact.html" style={ctaPrimary}>Get a quote</a>
               <a href="case-studies.html" style={ctaSecondary}>View our work</a>
             </div>
           </div>
@@ -169,7 +169,9 @@ const Hero = () => {
                   color: TOKENS.navy,
                   lineHeight: 1,
                   letterSpacing: "0.02em",
-                }}>50+</div>
+                }}>
+                  <Stat value={50} suffix="+" duration={1600} />
+                </div>
                 <div className="hero-badge-label" style={{
                   fontFamily: "Inter, sans-serif",
                   fontWeight: 500,
@@ -192,15 +194,25 @@ const Hero = () => {
   );
 };
 
-// TRUST STRIP — wordmark stand-ins, full SVG logos to follow.
-// TODO: Replace text wordmarks with actual SVG client logos once licensed.
-const TRUST_CLIENTS = ["Croke Park", "Glanbia", "Dairygold", "Kerry Group", "Musgrave"];
+// TRUST STRIP — anonymised sectoral pills in a marquee. Replaces the
+// previous wordmark stand-ins until permissioned client logos are in
+// hand. The pills describe sectors and project types we've delivered for.
+const TRUST_SECTORS = [
+  "Ireland's largest dairy co-ops",
+  "Food & beverage producers",
+  "Pharma manufacturers",
+  "Sports venues & hospitality",
+  "Cleanroom & GMP clients",
+  "Wellness & leisure brands",
+  "Architectural fit-out",
+  "National retailers",
+];
 const TrustStrip = () => (
   <section className="trust-strip" style={{
     background: TOKENS.white,
     borderBottom: `1px solid ${TOKENS.hairline}`,
   }}>
-    <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 32px" }}>
+    <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 0" }}>
       <div style={{
         textAlign: "center",
         fontFamily: "Inter, sans-serif",
@@ -210,31 +222,11 @@ const TrustStrip = () => (
         textTransform: "uppercase",
         color: "#6B7785",
         marginBottom: 24,
+        padding: "0 24px",
       }}>
-        Trusted across Ireland's leading industries
+        Fifty years of stainless steel for —
       </div>
-      <div className="trust-row">
-        {TRUST_CLIENTS.map((name) => (
-          <span key={name} className="trust-mark" style={{
-            fontFamily: "Inter, sans-serif",
-            fontSize: 16,
-            fontWeight: 600,
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            color: TOKENS.navy,
-            opacity: 0.4,
-            transition: "opacity 200ms ease",
-            maxHeight: 36,
-            lineHeight: "36px",
-            whiteSpace: "nowrap",
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.opacity = 1; }}
-          onMouseLeave={(e) => { e.currentTarget.style.opacity = 0.4; }}
-          >
-            {name}
-          </span>
-        ))}
-      </div>
+      <Marquee items={TRUST_SECTORS} speed={42} gap={32} />
     </div>
   </section>
 );
@@ -352,10 +344,18 @@ const CaseStudy = () => (
 
           <FadeUp delay={300}>
             <div style={{ marginTop: 56, display: "grid", gridTemplateColumns: "1fr 1fr 1fr", borderTop: "1px solid rgba(192,200,209,0.25)", paddingTop: 32, gap: 24 }}>
-              {[["38m", "Continuous run length"], ["AISI 304", "Food-grade stainless"], ["12 wks", "Designed to delivered"]].map(([n, l]) => (
-                <div key={l}>
-                  <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 36, color: "#fff", letterSpacing: "0.02em", lineHeight: 1 }}>{n}</div>
-                  <div style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#9DBED5", marginTop: 8, lineHeight: 1.4 }}>{l}</div>
+              {[
+                { kind: "stat", value: 38, suffix: "m", label: "Continuous run length" },
+                { kind: "text", value: "AISI 304", label: "Food-grade stainless" },
+                { kind: "stat", value: 12, suffix: " wks", label: "Designed to delivered" },
+              ].map((s) => (
+                <div key={s.label}>
+                  <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 36, color: "#fff", letterSpacing: "0.02em", lineHeight: 1 }}>
+                    {s.kind === "stat"
+                      ? <Stat value={s.value} suffix={s.suffix} duration={1400} />
+                      : s.value}
+                  </div>
+                  <div style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#9DBED5", marginTop: 8, lineHeight: 1.4 }}>{s.label}</div>
                 </div>
               ))}
             </div>
@@ -418,7 +418,7 @@ const ContactBand = () => (
       </FadeUp>
       <FadeUp delay={320}>
         <div style={{ display: "flex", gap: 14, justifyContent: "center", marginTop: 40, flexWrap: "wrap" }}>
-          <a href="contact.html" style={ctaPrimary}>Start a Project</a>
+          <a href="contact.html" style={ctaPrimary}>Talk to engineering</a>
           <a href="tel:+35302248200" style={ctaSecondary}>+353 (0)22 48200</a>
         </div>
       </FadeUp>
